@@ -22,8 +22,6 @@ export default function Tile({ id, isScreenShare }) {
   const audioTrackIsPlayable = audioTrack?.state === 'playable';
   const screenVideoTrackIsPlayable = screenVideoTrack?.state === 'playable';
 
-  console.log({screenVideoTrackIsPlayable})
-
     useEffect(() => {
     if (videoTrackIsPlayable) {
       videoElement.current &&

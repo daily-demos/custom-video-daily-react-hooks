@@ -18,7 +18,7 @@
   border-radius: 4px;
 }
 
-.localParticipant video {
+.self-view video {
   width: 100%;
   height: 100%;
   object-fit: cover;
