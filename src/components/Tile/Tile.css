@@ -15,13 +15,14 @@
   padding-top: 56.25%; /* Hard-coded 16:9 aspect ratio */
 }
 
-.tileScreenShare {
+/* TODO: implement grid */
+.tile-screenshare {
   border: 1px solid red;
   position: relative;
   margin: 3px;
 }
 
-.tileScreenShare video {
+.tile-screenshare video {
   width: 100%;
   position: absolute;
   top: 0;

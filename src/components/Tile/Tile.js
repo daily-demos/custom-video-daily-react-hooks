@@ -10,6 +10,9 @@ export default function Tile({ id, isScreenShare }) {
   const videoTrack = useVideoTrack(id);
   const audioTrack = useAudioTrack(id);
 
+  /* I dislike this. I need a screenId in order to decide whether something is a screenshare or not,
+  * and I need a sessionId to actually be able to use useScreenVideoTrack(). So for now I'm taking the screenId and
+  * removing '-screen' to turn it into a proper sessionId.  */
   const convertedScreenshareId = isScreenShare && id.replace('-screen', '');
 
   const screenVideoTrack = useScreenVideoTrack(convertedScreenshareId);
@@ -50,7 +53,7 @@ export default function Tile({ id, isScreenShare }) {
 
 
   return (
-    <div className={isScreenShare ? 'tileScreenShare' : 'tile'}>
+    <div className={isScreenShare ? 'tile-screenshare' : 'tile'}>
       <div className="tile-background">
         {videoTrack && <video autoPlay muted playsInline ref={videoElement} />}
         {audioTrack && <audio autoPlay playsInline ref={audioElement} />}
