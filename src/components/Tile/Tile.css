@@ -1,0 +1,16 @@
+.tile-video {
+  max-width: 480px;
+  max-height: 270px;
+}
+
+/* Resize remote participants when a screen is being shared */
+.is-screenshare .tile-video {
+  width: 240px;
+  height: 135px;
+}
+
+/* Put screen share front and center in our grid when there is one active */
+.tile-screenshare {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}

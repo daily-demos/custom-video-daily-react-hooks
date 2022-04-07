@@ -1,0 +1,50 @@
+.tray {
+  width: 100%;
+  background: var(--white);
+  color: var(--darkest-blue);
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+}
+
+.tray-buttons-container {
+  padding: 10px;
+  display: flex;
+}
+
+.tray-buttons-container button {
+  padding: 0;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: normal;
+}
+
+.tray-buttons-container button svg {
+  color: #121a24;
+}
+
+.tray-buttons-container button + button {
+  margin-left: 2rem;
+}
+
+.controls,
+.actions,
+.leave {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.controls {
+  justify-content: flex-start;
+}
+
+.actions {
+  justify-content: center;
+}
+
+.leave {
+  justify-content: flex-end;
+}

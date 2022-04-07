@@ -1,0 +1,70 @@
+.app {
+  background-color: var(--darkest-blue);
+  min-height: 100vh;
+  display: grid;
+  /* this is where we're dividing our app in 3 rows: header, call, and tray. The meeting information
+  is outside the app's document flow.*/
+  grid-template-rows: 4rem 1fr 4rem;
+}
+
+p {
+  font-size: 16px;
+  margin: 16px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  color: var(--turquoise);
+}
+
+p.small {
+  color: var(--dark-grey);
+  font-size: 12px;
+}
+
+button {
+  background-color: var(--turquoise);
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 12px;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.api-error {
+  background: var(--dark-blue-border);
+  width: 480px;
+  height: 270px;
+  display: inline-flex;
+  flex-direction: column;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  padding: 3rem;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.api-error p {
+  color: var(--white);
+}
+
+.api-error h1 {
+  color: var(--red-dark);
+}
+
+.api-error a,
+.api-error a:visited {
+  color: var(--white);
+}

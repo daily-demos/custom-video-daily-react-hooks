@@ -1,0 +1,36 @@
+:root {
+  --grey-lightest: #f7f9fa;
+  --white: #ffffff;
+  --grey: #c8d1dc;
+  --dark-grey: #6b7785;
+  --dark-blue: #1f2d3d;
+  --dark-blue-border: #2b3f56;
+  --darkest-blue: #121a24;
+  --green: #72cc18;
+  --red-dark: #f63135;
+  --turquoise: #1bebb9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  color: #333;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+button {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
