@@ -1,0 +1,28 @@
+.tile {
+  position: relative;
+  margin: 3px;
+}
+
+.tile video {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.tile-background {
+  background-color: var(--dark-grey);
+  width: 100%;
+  padding-top: 56.25%; /* Hard-coded 16:9 aspect ratio */
+}
+
+.tileScreenShare {
+  border: 1px solid red;
+  position: relative;
+  margin: 3px;
+}
+
+.tileScreenShare video {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
