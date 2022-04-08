@@ -60,7 +60,9 @@ export default function Call() {
            */}
           <div
             className={
-              isSharingScreen ? 'remote-participants-small' : 'remote-participants-large'
+              isSharingScreen
+                ? 'remote-participants-small'
+                : 'remote-participants-large'
             }>
             {remoteParticipantIdsAndScreenIds.map((id) => (
               <Tile key={id} id={id} isScreenShare={id.endsWith('-screen')} />

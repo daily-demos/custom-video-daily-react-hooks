@@ -11,8 +11,8 @@ export default function Tile({ id, isScreenShare }) {
   const audioTrack = useAudioTrack(id);
 
   /* I dislike this. I need a screenId in order to decide whether something is a screenshare or not,
-  * and I need a sessionId to actually be able to use useScreenVideoTrack(). So for now I'm taking the screenId and
-  * removing '-screen' to turn it into a proper sessionId.  */
+   * and I need a sessionId to actually be able to use useScreenVideoTrack(). So for now I'm taking the screenId and
+   * removing '-screen' to turn it into a proper sessionId.  */
   const convertedScreenshareId = isScreenShare && id.replace('-screen', '');
 
   const screenVideoTrack = useScreenVideoTrack(convertedScreenshareId);
@@ -25,7 +25,7 @@ export default function Tile({ id, isScreenShare }) {
   const audioTrackIsPlayable = audioTrack?.state === 'playable';
   const screenVideoTrackIsPlayable = screenVideoTrack?.state === 'playable';
 
-    useEffect(() => {
+  useEffect(() => {
     if (videoTrackIsPlayable) {
       videoElement.current &&
         (videoElement.current.srcObject =
@@ -50,7 +50,6 @@ export default function Tile({ id, isScreenShare }) {
           new MediaStream([screenVideoTrack.persistentTrack]));
     }
   }, [screenVideoTrack, screenVideoTrackIsPlayable]);
-
 
   return (
     <div className={isScreenShare ? 'tile-screenshare' : 'tile'}>
