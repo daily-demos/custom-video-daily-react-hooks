@@ -6,7 +6,7 @@ export default function MeetingInformation() {
   const callObject = useDaily();
   const room = useRoom();
   const network = useNetwork();
-  const allParticipants = useParticipantIds().toString();
+  const allParticipants = useParticipantIds()?.toString();
 
   return (
     <div className="meeting-information">
@@ -17,10 +17,10 @@ export default function MeetingInformation() {
           <li>Room ID: {room?.id ?? 'unknown'}</li>
           <li>Room name: {room?.name ?? 'unknown'}</li>
           <li>
-            Network status: {network?.threshold}
+            Network status: {network?.threshold ?? 'unknown'}
           </li>
-          <li>Network topology: {network?.topology}</li>
-          <li>Participant IDs: {allParticipants}</li>
+          <li>Network topology: {network?.topology ?? 'unknown'}</li>
+          <li>Participant IDs: {allParticipants && allParticipants}</li>
         </ul>
       </details>
     </div>
