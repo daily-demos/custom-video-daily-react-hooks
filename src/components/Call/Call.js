@@ -11,11 +11,10 @@ import Tile from '../Tile/Tile';
 import MeetingInformation from '../MeetingInformation/MeetingInformation';
 
 export default function Call() {
-  // Ideally we'd use useLocalParticipant() here, but the useLocalParticipant hook can't listen for a specific event to initialize its state.
-  // Currently, it's adding an arbitrary delay of 1 second after the loaded event fired, but 1 second doesn't seem to be enough depending on the runtime environment.
-  // So in case daily.participants().local doesn‘t return anything meaningful within 1 second, the hook keeps returning null.
-  // A workaround is to listen for a `participant-updated` corresponding to the local participant, which should fire upon either preAuth() or startCamera().
-  // But for now this will do (though not great for a hooks demo :|)
+  // Ideally we'd use useLocalParticipant() here, but the useLocalParticipant hook is...a bit wonky.
+  // Currently, it's adding an arbitrary delay of 1 second after the loaded event fired,
+  // but 1 second doesn't seem to be enough. I guess it depends on the runtime but on my machine I pretty consistently get back `null`.
+  // For now this will do (though not great for a hooks demo :|)
   const localParticipantId = useParticipantIds({ filter: 'local' })[0];
   const localParticipant = useParticipant(localParticipantId);
   const localParticipantVideoTrack = useVideoTrack(localParticipantId);
