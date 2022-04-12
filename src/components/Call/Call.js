@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import {
   useParticipantIds,
-  useParticipant,
   useVideoTrack,
   useScreenShare,
   useLocalParticipant,
@@ -12,10 +11,13 @@ import Tile from '../Tile/Tile';
 import MeetingInformation from '../MeetingInformation/MeetingInformation';
 
 export default function Call() {
+  /* We need this to display our self-view. */
   const localParticipant = useLocalParticipant();
   const localParticipantVideoTrack = useVideoTrack(
     localParticipant?.session_id,
   );
+
+  /* This is for displaying remote participants: this includes humans and screen shares.. */
   const { screens } = useScreenShare();
   const remoteParticipantIds = useParticipantIds({ filter: 'remote' });
 

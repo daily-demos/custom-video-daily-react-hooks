@@ -6,16 +6,6 @@
   overflow-x: hidden;
 }
 
-.lobby {
-  padding: 0 1rem;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: auto;
-  justify-content: center;
-}
-
 h2 {
   font-size: 32px;
   margin: 0;

@@ -1,7 +1,7 @@
 async function createRoom() {
   // we'll add 60 min expiry (exp) so rooms won't linger too long on your account
   // we'll also turn on chat (enable_chat)
-  // todo: enable prejoin when I don't need any more robots
+  // todo: remove prejoin when I no longer need robots to test
   // see other available options at https://docs.daily.co/reference#create-room
   const exp = Math.round(Date.now() / 1000) + 60 * 60;
   const options = {

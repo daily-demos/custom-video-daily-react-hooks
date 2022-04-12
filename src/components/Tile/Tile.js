@@ -11,25 +11,22 @@ export default function Tile({ id, isScreenShare }) {
   const videoElement = useRef(null);
   const audioElement = useRef(null);
 
-  /*  The track is ready to be played. We can show video of the remote participant in the UI.*/
-  const videoTrackIsPlayable = videoTrack?.state === 'playable';
-  const audioTrackIsPlayable = audioTrack?.state === 'playable';
-
   useEffect(() => {
-    if (videoTrackIsPlayable) {
+    /*  The track is ready to be played. We can show video of the remote participant in the UI.*/
+    if (videoTrack?.state === 'playable') {
       videoElement.current &&
         (videoElement.current.srcObject =
           videoTrack && new MediaStream([videoTrack.persistentTrack]));
     }
-  }, [videoTrack, videoTrackIsPlayable]);
+  }, [videoTrack]);
 
   useEffect(() => {
-    if (audioTrackIsPlayable) {
+    if (audioTrack?.state === 'playable') {
       audioElement?.current &&
         (audioElement.current.srcObject =
           audioTrack && new MediaStream([audioTrack.persistentTrack]));
     }
-  }, [audioTrack, audioTrackIsPlayable]);
+  }, [audioTrack]);
 
 
   return (

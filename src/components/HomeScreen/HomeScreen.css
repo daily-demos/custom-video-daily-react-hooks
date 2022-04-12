@@ -1,0 +1,9 @@
+.home-screen {
+    padding: 0 1rem;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    justify-content: center;
+}

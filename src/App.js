@@ -7,6 +7,7 @@ import { DailyProvider } from '@daily-co/daily-react-hooks';
 import api from './api';
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from './utils';
 
+import HomeScreen from './components/HomeScreen/HomeScreen'
 import Call from './components/Call/Call';
 import Header from './components/Header/Header';
 import Tray from './components/Tray/Tray';
@@ -42,7 +43,7 @@ export default function App() {
       .createRoom()
       .then((room) => room.url)
       .catch((error) => {
-        console.log('Error creating room', error);
+        console.error('Error creating room', error);
         setRoomUrl(null);
         setAppState(STATE_IDLE);
       });
@@ -72,6 +73,7 @@ export default function App() {
         setAppState(STATE_IDLE);
       });
     } else {
+      /* This will trigger a `left-meeting` event, which in turn will trigger the full clean-up as seen in handleNewMeetingState() below. */
       setAppState(STATE_LEAVING);
       callObject.leave();
     }
@@ -153,16 +155,7 @@ export default function App() {
           <Tray leaveCall={startLeavingCall} />
         </DailyProvider>
       ) : (
-        <div className="lobby">
-          <h2>Custom React video application</h2>
-          <p>Start demo with a new unique room by clicking the button below.</p>
-          <button
-            onClick={() => {
-              createCall().then((url) => startJoiningCall(url));
-            }}>
-            Click to start a call
-          </button>
-        </div>
+        <HomeScreen createCall={createCall} startJoiningCall={startJoiningCall}/>
       )}
     </div>
   );
