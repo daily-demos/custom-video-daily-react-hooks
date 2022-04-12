@@ -1,23 +1,27 @@
 import React, { useCallback, useState } from 'react';
-import { useDaily, useScreenShare } from '@daily-co/daily-react-hooks';
+import { useDaily, useScreenShare, useLocalParticipant, useVideoTrack, useAudioTrack } from '@daily-co/daily-react-hooks';
 
 import './Tray.css';
 
 export default function Tray({ leaveCall }) {
   const callObject = useDaily();
-  const [mutedVideo, setMutedVideo] = useState(false);
-  const [mutedAudio, setMutedAudio] = useState(false);
+  // const [mutedVideo, setMutedVideo] = useState(false);
+  // const [mutedAudio, setMutedAudio] = useState(false);
   const { isSharingScreen, startScreenShare, stopScreenShare } =
     useScreenShare();
 
+  const localParticipant = useLocalParticipant();
+  const localVideo = useVideoTrack(localParticipant?.session_id);
+  const localAudio = useAudioTrack(localParticipant?.session_id);
+  const mutedVideo = localVideo.isOff;
+  const mutedAudio = localAudio.isOff;
+
   const toggleVideo = useCallback(() => {
     callObject.setLocalVideo(mutedVideo);
-    setMutedVideo(!mutedVideo);
   }, [callObject, mutedVideo]);
 
   const toggleAudio = useCallback(() => {
     callObject.setLocalAudio(mutedAudio);
-    setMutedAudio(!mutedAudio);
   }, [callObject, mutedAudio]);
 
   const toggleScreenShare = () =>

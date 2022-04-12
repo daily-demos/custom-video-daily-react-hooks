@@ -23,7 +23,7 @@ export default function MeetingInformation() {
           <li>Room name: {room?.name ?? 'unknown'}</li>
           <li>Network status: {network?.threshold ?? 'unknown'}</li>
           <li>Network topology: {network?.topology ?? 'unknown'}</li>
-          <li>Participant IDs: {allParticipants && allParticipants}</li>
+          <li>Participant IDs: {allParticipants}</li>
         </ul>
       </details>
     </div>

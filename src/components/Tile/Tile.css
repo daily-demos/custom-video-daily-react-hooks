@@ -1,9 +1,10 @@
-.tile {
+.tiles { background: pink; }
+.tile-video {
   position: relative;
   margin: 3px;
 }
 
-.tile video {
+.tile-video video {
   width: 100%;
   position: absolute;
   top: 0;
