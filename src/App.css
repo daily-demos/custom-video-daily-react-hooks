@@ -1,0 +1,29 @@
+.app {
+  background-color: var(--grey-lightest);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+h2 {
+  font-size: 32px;
+  margin: 0;
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
+  margin: 16px;
+  text-align: center;
+}
+
+button {
+  background-color: var(--turquoise);
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 12px;
+}

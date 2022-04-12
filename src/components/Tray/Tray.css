@@ -1,0 +1,23 @@
+.tray {
+  width: 100%;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  height: 5rem;
+  background: var(--grey);
+  z-index: 2;
+  left: 0;
+}
+
+.tray-buttons-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.tray-buttons-container button {
+  padding: 20px;
+}
+.tray-buttons-container button + button {
+  margin-left: 10px;
+}

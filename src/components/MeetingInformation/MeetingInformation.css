@@ -1,0 +1,8 @@
+.meeting-information {
+  background-color: var(--white);
+  border-radius: 8px;
+  font-size: 12px;
+  border: 1px solid var(--grey);
+  padding: 12px;
+  cursor: pointer;
+}

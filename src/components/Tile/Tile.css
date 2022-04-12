@@ -1,0 +1,30 @@
+.tiles { background: pink; }
+.tile-video {
+  position: relative;
+  margin: 3px;
+}
+
+.tile-video video {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.tile-background {
+  background-color: var(--dark-grey);
+  width: 100%;
+  padding-top: 56.25%; /* Hard-coded 16:9 aspect ratio */
+}
+
+/* TODO: implement grid */
+.tile-screenshare {
+  border: 1px solid red;
+  position: relative;
+  margin: 3px;
+}
+
+.tile-screenshare video {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}

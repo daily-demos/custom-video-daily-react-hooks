@@ -1,0 +1,68 @@
+.call {
+  position: relative;
+}
+
+.call-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.5rem 1rem;
+  position: relative;
+  z-index: 2;
+  height: 10rem;
+}
+
+.self-view {
+  width: 130px;
+  height: 130px;
+  border-radius: 4px;
+}
+
+.self-view video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  transform: rotate3d(0, 1, 0, 180deg);
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out 0s;
+}
+
+.remote-participants-large {
+  /* TODO: grid magic */
+  height: calc(100% - 200px);
+  width: 100%;
+  position: absolute;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+  align-items: center;
+  top: 0;
+}
+
+.remote-participants-small {
+  /* TODO: grid magic */
+  height: calc(100% - 200px);
+  width: 100%;
+  position: absolute;
+  left: 0;
+  display: grid;
+  grid-template-columns: auto;
+  align-items: center;
+  top: 0;
+}
+
+.no-remote-participants {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.room-url {
+  background-color: var(--grey);
+  display: inline;
+  padding: 3px;
+  border-radius: 4px;
+  font-size: 14px;
+}
