@@ -44,10 +44,15 @@ export default function Call({ apiError }) {
 
   const renderCallScreen = () => {
     return (
-      <div className={`call ${screens.length > 0 ? 'is-screenshare' : ''}`}>
+      <div className={`${screens.length > 0 ? 'is-screenshare' : 'call'}`}>
         {/*Your self view*/}
         {localParticipant && (
-          <div className="self-view">
+          <div
+            className={
+              remoteParticipantIds?.length > 0 || screens?.length > 0
+                ? 'self-view'
+                : 'self-view alone'
+            }>
             <video autoPlay muted playsInline ref={localVideoElement} />
           </div>
         )}
