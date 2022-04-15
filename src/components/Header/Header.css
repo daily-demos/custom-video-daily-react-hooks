@@ -17,7 +17,7 @@ span.title {
   padding: 0 16px;
 }
 
-a {
+header a {
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -25,7 +25,7 @@ a {
   color: var(--dark-blue);
 }
 
-a.new-tab-link {
+header a.new-tab-link {
   border: 1px solid var(--dark-grey);
   border-radius: 8px;
 }

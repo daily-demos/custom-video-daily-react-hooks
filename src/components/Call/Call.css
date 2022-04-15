@@ -9,7 +9,6 @@
   margin: auto;
   align-items: center;
   justify-items: center;
-  /*grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));*/
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: 1fr;
   grid-column-gap: 30px;

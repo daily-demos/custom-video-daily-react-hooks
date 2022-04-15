@@ -25,6 +25,7 @@ export default function App() {
   const [appState, setAppState] = useState(STATE_IDLE);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
+  const [apiError, setApiError] = useState(false);
 
   /**
    * Show the call UI if we're either joining, already joined, or are showing
@@ -46,6 +47,7 @@ export default function App() {
         console.error('Error creating room', error);
         setRoomUrl(null);
         setAppState(STATE_IDLE);
+        setApiError(true);
       });
   }, []);
 
@@ -154,7 +156,19 @@ export default function App() {
   return (
     <div className="app">
       <Header />
-      {showCall ? (
+      {apiError ? (
+        <div className="api-error">
+          <h1>Error</h1>
+          <p>
+            Room could not be created. Please check your local configuration in
+            `api.js`. For more information, check out the{' '}
+            <a href="https://github.com/daily-demos/call-object-react-daily-hooks/blob/main/README.md">
+              readme
+            </a>{' '}
+            :)
+          </p>
+        </div>
+      ) : showCall ? (
         <DailyProvider callObject={callObject}>
           <MeetingInformation />
           <Call />

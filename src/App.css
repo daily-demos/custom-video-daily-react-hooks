@@ -41,3 +41,30 @@ video {
   object-fit: cover;
   border-radius: 4px;
 }
+
+.api-error {
+  background: var(--dark-blue-border);
+  width: 480px;
+  height: 270px;
+  display: inline-flex;
+  flex-direction: column;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  padding: 3rem;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.api-error p {
+  color: var(--white);
+}
+
+.api-error h1 {
+  color: var(--red-dark);
+}
+
+.api-error a,
+.api-error a:visited {
+  color: var(--white);
+}

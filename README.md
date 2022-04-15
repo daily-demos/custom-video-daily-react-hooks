@@ -1,6 +1,6 @@
 # Call Object Demo with daily-react-hooks
 
-This is a demo of a [React app](https://svelte.dev/) using  Daily's call object API and the [daily-react-hooks library](https://docs.daily.co/reference/daily-react-hooks) to showcase a basic video web app.
+This is a demo of a [React app](https://svelte.dev/) using  Daily's call object API and the [Daily React Hooks library](https://docs.daily.co/reference/daily-react-hooks) to showcase a basic video web app.
 
 <img src="./react-home.png" alt="home screen">
 <img src="./react-call.png" alt="call screen">
@@ -11,9 +11,9 @@ Test a deployed version of this app at [https://todo.netlify.app/](https://todo.
 
 ## Requirements
 
-To use this demo, you will first need to [create a Daily account](https://dashboard.daily.co/signup). You will need your Daily API key, which can be found on the [Developers](https://dashboard.daily.co/developers) page, if you want to create new rooms through the demo UI.
-
-You can use existing Daily rooms in the demo by pasting the room URL into the input. The room URL should be in this format to be valid: `https://your-domain.daily.co/room-name`, with `daily-domain` changed to your domain, and `room-name` changed to the name of the existing room you would like to use.
+To use this demo, you will first need to [create a Daily account](https://dashboard.daily.co/signup). You will also need a Daily room URL, which you can get via two options in this demo:
+- To create new Daily rooms directly through this demo's UI, you will need your Daily API key, which can be found on the [Developers](https://dashboard.daily.co/developers) page. This will be used in your environment variables. (Instructions below.)
+- Alternatively, you can use existing Daily rooms in the demo by pasting the room URL into the input. The room URL should be in this format to be valid: `https://your-domain.daily.co/room-name`, with `daily-domain` changed to your domain, and `room-name` changed to the name of the existing room you would like to use.
 
 ---
 

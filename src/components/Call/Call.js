@@ -11,7 +11,7 @@ import './Call.css';
 import Tile from '../Tile/Tile';
 import UserMediaError from '../UserMediaError/UserMediaError';
 
-export default function Call() {
+export default function Call({ apiError }) {
   /* If a participant runs into a getUserMedia() error, we need to warn them. */
   const [getUserMediaError, setGetUserMediaError] = useState(false);
 
@@ -29,6 +29,7 @@ export default function Call() {
   const localParticipantVideoTrack = useVideoTrack(
     localParticipant?.session_id,
   );
+  const localVideoElement = useRef(null);
 
   useEffect(() => {
     localVideoElement.current &&
@@ -40,7 +41,6 @@ export default function Call() {
   /* This is for displaying remote participants: this includes other humans, but also screen shares. */
   const { screens } = useScreenShare();
   const remoteParticipantIds = useParticipantIds({ filter: 'remote' });
-  const localVideoElement = useRef(null);
 
   const renderCallScreen = () => {
     return (
