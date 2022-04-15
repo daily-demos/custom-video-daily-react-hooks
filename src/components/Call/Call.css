@@ -1,68 +1,70 @@
+/*
+  CSS grid is great for making video layouts.
+  For the purposes of this demo, we're keeping things relatively simple.
+  If you're interested in dynamic video grids, make sure to check out this blog post:
+   https://www.daily.co/blog/add-pagination-to-a-custom-daily-video-chat-app-to-support-larger-meetings/
+ */
 .call {
-  position: relative;
+  display: grid;
+  padding: 5rem;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-auto-rows: 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.call-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0.5rem 1rem;
-  position: relative;
-  z-index: 2;
-  height: 10rem;
+.is-screenshare {
+  display: grid;
+  padding: 5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-row-gap: 15px;
 }
 
 .self-view {
-  width: 130px;
-  height: 130px;
-  border-radius: 4px;
+  max-width: 480px;
+  max-height: 270px;
+}
+
+/* Hard-code the self-view size if there's no one else in the call, just to make it align with the info-box */
+.self-view.alone {
+  width: 480px;
+  height: 270px;
 }
 
 .self-view video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 4px;
+  /* Mirror the self-view: it's weird not seeing yourself mirrored! */
   transform: rotate3d(0, 1, 0, 180deg);
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out 0s;
 }
 
-.remote-participants-large {
-  /* TODO: grid magic */
-  height: calc(100% - 200px);
-  width: 100%;
-  position: absolute;
-  left: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
-  align-items: center;
-  top: 0;
+/*
+  When someone is sharing their screen, we want to resize the participants' videos,
+  so the biggest screen in our grid is the screen share.
+ */
+.is-screenshare .self-view {
+  width: 240px;
+  height: 135px;
 }
 
-.remote-participants-small {
-  /* TODO: grid magic */
-  height: calc(100% - 200px);
-  width: 100%;
-  position: absolute;
-  left: 0;
-  display: grid;
-  grid-template-columns: auto;
-  align-items: center;
-  top: 0;
-}
-
-.no-remote-participants {
-  max-width: 600px;
-  margin: 0 auto;
+.info-box {
+  background: var(--dark-blue-border);
+  color: var(--white);
+  width: 480px;
+  height: 270px;
   display: flex;
+  justify-content: center;
   flex-direction: column;
+  text-align: center;
+  padding: 3rem;
+  box-sizing: border-box;
+  border-radius: 4px;
 }
 
 .room-url {
-  background-color: var(--grey);
-  display: inline;
-  padding: 3px;
-  border-radius: 4px;
-  font-size: 14px;
+  padding: 0 1rem;
+  word-break: break-all;
+  font-weight: normal;
 }

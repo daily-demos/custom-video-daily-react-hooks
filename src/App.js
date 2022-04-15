@@ -7,13 +7,13 @@ import { DailyProvider } from '@daily-co/daily-react-hooks';
 import api from './api';
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from './utils';
 
-import HomeScreen from './components/HomeScreen/HomeScreen'
+import HomeScreen from './components/HomeScreen/HomeScreen';
 import Call from './components/Call/Call';
 import Header from './components/Header/Header';
 import Tray from './components/Tray/Tray';
+import MeetingInformation from './components/MeetingInformation/MeetingInformation';
 
-/* We decide what UI to show to users based on appState. */
-/* TODO: figure out if I can simplify this*/
+/* We decide what UI to show to users based on the state of the app, which is dependent on the state of the call object: see line 137. */
 const STATE_IDLE = 'STATE_IDLE';
 const STATE_CREATING = 'STATE_CREATING';
 const STATE_JOINING = 'STATE_JOINING';
@@ -25,6 +25,7 @@ export default function App() {
   const [appState, setAppState] = useState(STATE_IDLE);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
+  const [apiError, setApiError] = useState(false);
 
   /**
    * Show the call UI if we're either joining, already joined, or are showing
@@ -46,6 +47,7 @@ export default function App() {
         console.error('Error creating room', error);
         setRoomUrl(null);
         setAppState(STATE_IDLE);
+        setApiError(true);
       });
   }, []);
 
@@ -108,7 +110,7 @@ export default function App() {
   useEffect(() => {
     if (!callObject) return;
 
-    const events = ['joined-meeting', 'left-meeting', 'error'];
+    const events = ['joined-meeting', 'left-meeting', 'error', 'camera-error'];
 
     function handleNewMeetingState() {
       switch (callObject.meetingState()) {
@@ -135,6 +137,11 @@ export default function App() {
 
     // Listen for changes in state
     for (const event of events) {
+      /*
+        We can't use the useDailyEvent hook (https://docs.daily.co/reference/daily-react-hooks/use-daily-event) for this
+        because right now, we're not inside a <DailyProvider/> (https://docs.daily.co/reference/daily-react-hooks/daily-provider)
+        context yet. We can't access the call object via daily-react-hooks just yet, but we will later in Call.js.
+      */
       callObject.on(event, handleNewMeetingState);
     }
 
@@ -149,13 +156,29 @@ export default function App() {
   return (
     <div className="app">
       <Header />
-      {showCall ? (
+      {apiError ? (
+        <div className="api-error">
+          <h1>Error</h1>
+          <p>
+            Room could not be created. Please check your local configuration in
+            `api.js`. For more information, check out the{' '}
+            <a href="https://github.com/daily-demos/call-object-react-daily-hooks/blob/main/README.md">
+              readme
+            </a>{' '}
+            :)
+          </p>
+        </div>
+      ) : showCall ? (
         <DailyProvider callObject={callObject}>
+          <MeetingInformation />
           <Call />
           <Tray leaveCall={startLeavingCall} />
         </DailyProvider>
       ) : (
-        <HomeScreen createCall={createCall} startJoiningCall={startJoiningCall}/>
+        <HomeScreen
+          createCall={createCall}
+          startJoiningCall={startJoiningCall}
+        />
       )}
     </div>
   );

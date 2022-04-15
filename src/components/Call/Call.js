@@ -1,26 +1,34 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
   useParticipantIds,
   useVideoTrack,
   useScreenShare,
   useLocalParticipant,
+  useDailyEvent,
 } from '@daily-co/daily-react-hooks';
 
 import './Call.css';
 import Tile from '../Tile/Tile';
-import MeetingInformation from '../MeetingInformation/MeetingInformation';
+import UserMediaError from '../UserMediaError/UserMediaError';
 
-export default function Call() {
-  /* We need this to display our self-view. */
+export default function Call({ apiError }) {
+  /* If a participant runs into a getUserMedia() error, we need to warn them. */
+  const [getUserMediaError, setGetUserMediaError] = useState(false);
+
+  /* We can use the useDailyEvent() hook to listen for daily-js events. Here's a full list
+   * of all events: https://docs.daily.co/reference/daily-js/events */
+  useDailyEvent(
+    'camera-error',
+    useCallback((ev) => {
+      setGetUserMediaError(true);
+    }, []),
+  );
+
+  /* This is for displaying our self-view. */
   const localParticipant = useLocalParticipant();
   const localParticipantVideoTrack = useVideoTrack(
     localParticipant?.session_id,
   );
-
-  /* This is for displaying remote participants: this includes humans and screen shares.. */
-  const { screens } = useScreenShare();
-  const remoteParticipantIds = useParticipantIds({ filter: 'remote' });
-
   const localVideoElement = useRef(null);
 
   useEffect(() => {
@@ -30,19 +38,27 @@ export default function Call() {
         new MediaStream([localParticipantVideoTrack?.persistentTrack]));
   }, [localParticipantVideoTrack?.persistentTrack]);
 
-  return (
-    <div className="call">
-      <div className="call-meta">
-        <MeetingInformation />
+  /* This is for displaying remote participants: this includes other humans, but also screen shares. */
+  const { screens } = useScreenShare();
+  const remoteParticipantIds = useParticipantIds({ filter: 'remote' });
+
+  const renderCallScreen = () => {
+    return (
+      <div className={`${screens.length > 0 ? 'is-screenshare' : 'call'}`}>
+        {/*Your self view*/}
         {localParticipant && (
-          <div className="self-view">
+          <div
+            className={
+              remoteParticipantIds?.length > 0 || screens?.length > 0
+                ? 'self-view'
+                : 'self-view alone'
+            }>
             <video autoPlay muted playsInline ref={localVideoElement} />
           </div>
         )}
-      </div>
-      {remoteParticipantIds.length > 0 || screens.length > 0 ? (
-        <>
-          <div className="tiles">
+        {/*Videos of remote participants and screen shares*/}
+        {remoteParticipantIds?.length > 0 || screens?.length > 0 ? (
+          <>
             {remoteParticipantIds.map((id) => (
               <Tile key={id} id={id} />
             ))}
@@ -53,18 +69,18 @@ export default function Call() {
                 isScreenShare
               />
             ))}
+          </>
+        ) : (
+          // When there are no remote participants or screen shares
+          <div className="info-box">
+            <h1>Waiting for others</h1>
+            <p>Invite someone by sharing this link:</p>
+            <span className="room-url">{window.location.href}</span>
           </div>
-        </>
-      ) : (
-        <div className="no-remote-participants">
-          {/*This message isn't entirely correct - sometimes people will join and it'll take a sec before this
-          message disappears, even though there's others in the call.
-           TODO: use useDailyEvents (?) to correctly gauge the meeting's state */}
-          <h2>No other participants</h2>
-          <p>Copy and paste this URL to allow others to join:</p>
-          <p className="room-url">{window.location.href}</p>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
+  };
+
+  return <>{getUserMediaError ? <UserMediaError /> : renderCallScreen()}</>;
 }

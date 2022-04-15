@@ -1,8 +1,6 @@
 import './Tile.css';
 import { useEffect, useRef } from 'react';
-import {
-  useMediaTrack,
-} from '@daily-co/daily-react-hooks';
+import { useMediaTrack } from '@daily-co/daily-react-hooks';
 
 export default function Tile({ id, isScreenShare }) {
   const videoTrack = useMediaTrack(id, isScreenShare ? 'screenVideo' : 'video');
@@ -28,13 +26,10 @@ export default function Tile({ id, isScreenShare }) {
     }
   }, [audioTrack]);
 
-
   return (
     <div className={isScreenShare ? 'tile-screenshare' : 'tile-video'}>
-      <div className="tile-background">
-        {videoTrack && <video autoPlay muted playsInline ref={videoElement} />}
-        {audioTrack && <audio autoPlay playsInline ref={audioElement} />}
-      </div>
+      {videoTrack && <video autoPlay muted playsInline ref={videoElement} />}
+      {audioTrack && <audio autoPlay playsInline ref={audioElement} />}
     </div>
   );
 }
