@@ -65,6 +65,6 @@
 
 .room-url {
   padding: 0 1rem;
-  word-break: break-all;
+  word-break: break-word;
   font-weight: normal;
 }

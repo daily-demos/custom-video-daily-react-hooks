@@ -8,4 +8,6 @@
   position: absolute;
   top: 4.5rem;
   left: 0.5rem;
+  max-width: 400px;
+  z-index: 2;
 }
