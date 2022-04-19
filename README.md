@@ -2,10 +2,9 @@
 
 This is a demo of a [React app](https://svelte.dev/) using  Daily's call object API and the [Daily React Hooks library](https://docs.daily.co/reference/daily-react-hooks) to showcase a basic video web app.
 
-<img src="./react-home.png" alt="home screen">
-<img src="./react-call.png" alt="call screen">
+![screen6](https://user-images.githubusercontent.com/12814720/164059341-73b04a6d-fc9e-41b8-b3d2-6a6b9b6f87f2.png)
 
-Test a deployed version of this app at [https://todo.netlify.app/](https://todo.netlify.app/).
+Test a deployed version of this app at [https://TODO_TODO_TODO.netlify.app/](https://TODO_TODO_TODO.netlify.app/).
 
 ---
 
