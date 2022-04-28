@@ -1,19 +1,49 @@
 .tray {
   width: 100%;
+  background: var(--white);
+  color: #111a24;
+  flex-direction: column;
   display: flex;
-  background: var(--grey);
+  justify-content: center;
 }
 
 .tray-buttons-container {
-  display: flex;
-  align-items: center;
   padding: 10px;
+  display: flex;
 }
 
 .tray-buttons-container button {
   padding: 10px 20px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.tray-buttons-container button svg {
+  color: #121a24;
 }
 
 .tray-buttons-container button + button {
   margin-left: 10px;
+}
+
+.controls,
+.actions,
+.leave {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.controls {
+  justify-content: flex-start;
+}
+
+.actions {
+  justify-content: center;
+}
+
+.leave {
+  justify-content: flex-end;
 }

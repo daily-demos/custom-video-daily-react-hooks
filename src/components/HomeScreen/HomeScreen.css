@@ -9,6 +9,10 @@
 }
 
 .home-screen h1 {
-  color: var(--darkest-blue);
+  color: var(--white);
   font-weight: bold;
+}
+
+.home-screen p {
+  color: var(--grey)
 }

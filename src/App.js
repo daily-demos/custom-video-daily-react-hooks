@@ -11,7 +11,6 @@ import HomeScreen from './components/HomeScreen/HomeScreen';
 import Call from './components/Call/Call';
 import Header from './components/Header/Header';
 import Tray from './components/Tray/Tray';
-import MeetingInformation from './components/MeetingInformation/MeetingInformation';
 
 /* We decide what UI to show to users based on the state of the app, which is dependent on the state of the call object: see line 137. */
 const STATE_IDLE = 'STATE_IDLE';
@@ -170,7 +169,6 @@ export default function App() {
         </div>
       ) : showCall ? (
         <DailyProvider callObject={callObject}>
-          <MeetingInformation />
           <Call />
           <Tray leaveCall={startLeavingCall} />
         </DailyProvider>

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   useDaily,
   useScreenShare,
@@ -6,13 +6,25 @@ import {
   useVideoTrack,
   useAudioTrack,
 } from '@daily-co/daily-react-hooks';
+import MeetingInformation from '../MeetingInformation/MeetingInformation';
 
 import './Tray.css';
+import {
+  CameraOn,
+  Leave,
+  CameraOff,
+  MicrophoneOff,
+  MicrophoneOn,
+  Screenshare,
+  Info,
+} from './Icons';
 
 export default function Tray({ leaveCall }) {
   const callObject = useDaily();
   const { isSharingScreen, startScreenShare, stopScreenShare } =
     useScreenShare();
+
+  const [showMeetingInformation, setShowMeetingInformation] = useState(false)
 
   const localParticipant = useLocalParticipant();
   const localVideo = useVideoTrack(localParticipant?.session_id);
@@ -35,19 +47,40 @@ export default function Tray({ leaveCall }) {
     leaveCall();
   };
 
+  const toggleMeetingInformation = () => {
+    showMeetingInformation ? setShowMeetingInformation(false) : setShowMeetingInformation(true);
+  }
+
   return (
     <div className="tray">
+      {showMeetingInformation && <MeetingInformation/>}
       <div className="tray-buttons-container">
-        <button onClick={toggleVideo}>
-          {mutedVideo ? 'Unmute your video' : 'Mute your video'}
-        </button>
-        <button onClick={toggleAudio}>
-          {mutedAudio ? 'Unmute your audio' : 'Mute your audio'}
-        </button>
-        <button onClick={toggleScreenShare}>
-          {isSharingScreen ? 'Stop sharing screen' : 'Share your screen'}
-        </button>
-        <button onClick={leave}>Leave call</button>
+        <div className="controls">
+          <button onClick={toggleVideo}>
+            {mutedVideo ? <CameraOff /> : <CameraOn/>}
+            {mutedVideo ? 'Turn on' : 'Turn off'}
+          </button>
+          <button onClick={toggleAudio}>
+            {mutedAudio ? <MicrophoneOff /> : <MicrophoneOn />}
+            {mutedAudio ? 'Unmute' : 'Mute'}
+          </button>
+        </div>
+        <div className="actions">
+          <button onClick={toggleScreenShare}>
+            <Screenshare />
+            {isSharingScreen ? 'Stop sharing' : 'Share'}
+          </button>
+          <button onClick={toggleMeetingInformation}>
+            <Info/>
+            {showMeetingInformation ? 'Hide info' : 'Show info'}
+
+          </button>
+        </div>
+        <div className="leave">
+          <button onClick={leave}>
+            <Leave /> Leave
+          </button>
+        </div>
       </div>
     </div>
   );

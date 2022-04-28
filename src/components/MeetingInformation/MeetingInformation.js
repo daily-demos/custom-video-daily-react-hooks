@@ -14,8 +14,8 @@ export default function MeetingInformation() {
   const allParticipants = useParticipantIds()?.toString();
 
   return (
-    <details className="meeting-information">
-      <summary>Meeting information</summary>
+    <section className="meeting-information">
+      <h1>Meeting information</h1>
       <ul>
         <li>Meeting state: {callObject?.meetingState() ?? 'unknown'}</li>
         <li>Room ID: {room?.id ?? 'unknown'}</li>
@@ -24,6 +24,6 @@ export default function MeetingInformation() {
         <li>Network topology: {network?.topology ?? 'unknown'}</li>
         <li>Participant IDs: {allParticipants}</li>
       </ul>
-    </details>
+    </section>
   );
 }

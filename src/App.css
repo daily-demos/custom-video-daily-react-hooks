@@ -1,5 +1,5 @@
 .app {
-  background-color: var(--grey-lightest);
+  background-color: #111A24;
   min-height: 100vh;
   display: grid;
   /* this is where we're dividing our app in 3 rows: header, call, and tray. The meeting information
