@@ -58,17 +58,17 @@ export default function Tray({ leaveCall }) {
         <div className="controls">
           <button onClick={toggleVideo}>
             {mutedVideo ? <CameraOff /> : <CameraOn/>}
-            {mutedVideo ? 'Turn on' : 'Turn off'}
+            {mutedVideo ? 'Turn camera on' : 'Turn camera off'}
           </button>
           <button onClick={toggleAudio}>
             {mutedAudio ? <MicrophoneOff /> : <MicrophoneOn />}
-            {mutedAudio ? 'Unmute' : 'Mute'}
+            {mutedAudio ? 'Unmute mic' : 'Mute mic'}
           </button>
         </div>
         <div className="actions">
           <button onClick={toggleScreenShare}>
             <Screenshare />
-            {isSharingScreen ? 'Stop sharing' : 'Share'}
+            {isSharingScreen ? 'Stop sharing screen' : 'Share screen'}
           </button>
           <button onClick={toggleMeetingInformation}>
             <Info/>
@@ -78,7 +78,7 @@ export default function Tray({ leaveCall }) {
         </div>
         <div className="leave">
           <button onClick={leave}>
-            <Leave /> Leave
+            <Leave /> Leave call
           </button>
         </div>
       </div>

@@ -3,6 +3,7 @@ import React from 'react';
 export const CameraOn = () => {
   return (
     <svg
+      aria-hidden="true"
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -21,6 +22,7 @@ export const CameraOn = () => {
 export const CameraOff = () => {
   return (
     <svg
+      aria-hidden="true"
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -45,6 +47,7 @@ export const CameraOff = () => {
 export const MicrophoneOn = () => {
   return (
     <svg
+      aria-hidden="true"
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -63,6 +66,7 @@ export const MicrophoneOn = () => {
 export const MicrophoneOff = () => {
   return (
     <svg
+      aria-hidden="true"
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -87,6 +91,7 @@ export const MicrophoneOff = () => {
 export const Screenshare = () => {
   return (
     <svg
+      aria-hidden="true"
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -105,6 +110,7 @@ export const Screenshare = () => {
 export const Leave = () => {
   return (
     <svg
+      aria-hidden="true"
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -125,6 +131,7 @@ export const Leave = () => {
 export const Info = () => {
   return (
     <svg
+      aria-hidden="true"
       width="24"
       height="24"
       viewBox="0 0 24 24"
