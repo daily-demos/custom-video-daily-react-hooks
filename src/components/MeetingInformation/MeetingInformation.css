@@ -12,3 +12,6 @@
   z-index: 2;
 }
 
+.meeting-information h1 {
+  color: var(--dark-blue);
+}

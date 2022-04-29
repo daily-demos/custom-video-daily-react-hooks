@@ -24,7 +24,7 @@ export default function Tray({ leaveCall }) {
   const { isSharingScreen, startScreenShare, stopScreenShare } =
     useScreenShare();
 
-  const [showMeetingInformation, setShowMeetingInformation] = useState(false)
+  const [showMeetingInformation, setShowMeetingInformation] = useState(false);
 
   const localParticipant = useLocalParticipant();
   const localVideo = useVideoTrack(localParticipant?.session_id);
@@ -48,16 +48,18 @@ export default function Tray({ leaveCall }) {
   };
 
   const toggleMeetingInformation = () => {
-    showMeetingInformation ? setShowMeetingInformation(false) : setShowMeetingInformation(true);
-  }
+    showMeetingInformation
+      ? setShowMeetingInformation(false)
+      : setShowMeetingInformation(true);
+  };
 
   return (
     <div className="tray">
-      {showMeetingInformation && <MeetingInformation/>}
+      {showMeetingInformation && <MeetingInformation />}
       <div className="tray-buttons-container">
         <div className="controls">
           <button onClick={toggleVideo}>
-            {mutedVideo ? <CameraOff /> : <CameraOn/>}
+            {mutedVideo ? <CameraOff /> : <CameraOn />}
             {mutedVideo ? 'Turn camera on' : 'Turn camera off'}
           </button>
           <button onClick={toggleAudio}>
@@ -71,9 +73,8 @@ export default function Tray({ leaveCall }) {
             {isSharingScreen ? 'Stop sharing screen' : 'Share screen'}
           </button>
           <button onClick={toggleMeetingInformation}>
-            <Info/>
+            <Info />
             {showMeetingInformation ? 'Hide info' : 'Show info'}
-
           </button>
         </div>
         <div className="leave">

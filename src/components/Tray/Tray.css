@@ -1,7 +1,7 @@
 .tray {
   width: 100%;
   background: var(--white);
-  color: #111a24;
+  color: var(--darkest-blue);
   flex-direction: column;
   display: flex;
   justify-content: center;
@@ -13,11 +13,12 @@
 }
 
 .tray-buttons-container button {
-  padding: 10px 20px;
+  padding: 0;
   background-color: white;
   display: flex;
   align-items: center;
   flex-direction: column;
+  font-weight: normal;
 }
 
 .tray-buttons-container button svg {
@@ -25,7 +26,7 @@
 }
 
 .tray-buttons-container button + button {
-  margin-left: 10px;
+  margin-left: 2rem;
 }
 
 .controls,
