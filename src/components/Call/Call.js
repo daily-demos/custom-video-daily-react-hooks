@@ -11,7 +11,7 @@ import './Call.css';
 import Tile from '../Tile/Tile';
 import UserMediaError from '../UserMediaError/UserMediaError';
 
-export default function Call({ apiError }) {
+export default function Call() {
   /* If a participant runs into a getUserMedia() error, we need to warn them. */
   const [getUserMediaError, setGetUserMediaError] = useState(false);
 
@@ -26,18 +26,16 @@ export default function Call({ apiError }) {
 
   /* This is for displaying our self-view. */
   const localParticipant = useLocalParticipant();
-  const localParticipantVideoTrack = useVideoTrack(
-    localParticipant?.session_id,
-  );
+  const localParticipantVideoTrack = useVideoTrack(localParticipant?.session_id);
   const localVideoElement = useRef(null);
 
   useEffect(() => {
-    localVideoElement.current &&
+    if (!localParticipantVideoTrack.persistentTrack) return;
+    localVideoElement?.current &&
       (localVideoElement.current.srcObject =
-        localParticipantVideoTrack &&
+        localParticipantVideoTrack.persistentTrack &&
         new MediaStream([localParticipantVideoTrack?.persistentTrack]));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localParticipantVideoTrack?.persistentTrack]);
+  }, [localParticipantVideoTrack.persistentTrack]);
 
   /* This is for displaying remote participants: this includes other humans, but also screen shares. */
   const { screens } = useScreenShare();
@@ -64,11 +62,7 @@ export default function Call({ apiError }) {
               <Tile key={id} id={id} />
             ))}
             {screens.map((screen) => (
-              <Tile
-                key={screen.screenId}
-                id={screen.session_id}
-                isScreenShare
-              />
+              <Tile key={screen.screenId} id={screen.session_id} isScreenShare />
             ))}
           </>
         ) : (
