@@ -18,20 +18,22 @@ export default function Call() {
   /* We can use the useDailyEvent() hook to listen for daily-js events. Here's a full list
    * of all events: https://docs.daily.co/reference/daily-js/events */
   useDailyEvent(
-      'camera-error',
-      useCallback((ev) => {
-        setGetUserMediaError(true);
-      }, []),
+    'camera-error',
+    useCallback((ev) => {
+      setGetUserMediaError(true);
+    }, []),
   );
 
   /* This is for displaying our self-view. */
   const localParticipant = useLocalParticipant();
-  const localParticipantVideoTrack = useVideoTrack(localParticipant?.session_id);
+  const localParticipantVideoTrack = useVideoTrack(
+    localParticipant?.session_id,
+  );
   const localVideoElement = useRef(null);
 
   useEffect(() => {
     localVideoElement?.current &&
-    (localVideoElement.current.srcObject =
+      (localVideoElement.current.srcObject =
         localParticipantVideoTrack &&
         new MediaStream([localParticipantVideoTrack?.persistentTrack]));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,44 +45,48 @@ export default function Call() {
 
   const renderCallScreen = () => {
     return (
-        <div className={`${screens.length > 0 ? 'is-screenshare' : 'call'}`}>
-          {/*Your self view*/}
-          {localParticipant && (
-              <div
-                  className={
-                    remoteParticipantIds?.length > 0 || screens?.length > 0
-                        ? 'self-view'
-                        : 'self-view alone'
-                  }>
-                <video autoPlay muted playsInline ref={localVideoElement} />
-                <div className="username">
-                  You (
-                  {localParticipant?.user_name
-                      ? localParticipant?.user_name
-                      : localParticipant?.user_id}
-                  )
-                </div>
-              </div>
-          )}
-          {/*Videos of remote participants and screen shares*/}
-          {remoteParticipantIds?.length > 0 || screens?.length > 0 ? (
-              <>
-                {remoteParticipantIds.map((id) => (
-                    <Tile key={id} id={id} />
-                ))}
-                {screens.map((screen) => (
-                    <Tile key={screen.screenId} id={screen.session_id} isScreenShare />
-                ))}
-              </>
-          ) : (
-              // When there are no remote participants or screen shares
-              <div className="info-box">
-                <h1>Waiting for others</h1>
-                <p>Invite someone by sharing this link:</p>
-                <span className="room-url">{window.location.href}</span>
-              </div>
-          )}
-        </div>
+      <div className={`${screens.length > 0 ? 'is-screenshare' : 'call'}`}>
+        {/*Your self view*/}
+        {localParticipant && (
+          <div
+            className={
+              remoteParticipantIds?.length > 0 || screens?.length > 0
+                ? 'self-view'
+                : 'self-view alone'
+            }>
+            <video autoPlay muted playsInline ref={localVideoElement} />
+            <div className="username">
+              You (
+              {localParticipant?.user_name
+                ? localParticipant?.user_name
+                : localParticipant?.user_id}
+              )
+            </div>
+          </div>
+        )}
+        {/*Videos of remote participants and screen shares*/}
+        {remoteParticipantIds?.length > 0 || screens?.length > 0 ? (
+          <>
+            {remoteParticipantIds.map((id) => (
+              <Tile key={id} id={id} />
+            ))}
+            {screens.map((screen) => (
+              <Tile
+                key={screen.screenId}
+                id={screen.session_id}
+                isScreenShare
+              />
+            ))}
+          </>
+        ) : (
+          // When there are no remote participants or screen shares
+          <div className="info-box">
+            <h1>Waiting for others</h1>
+            <p>Invite someone by sharing this link:</p>
+            <span className="room-url">{window.location.href}</span>
+          </div>
+        )}
+      </div>
     );
   };
 

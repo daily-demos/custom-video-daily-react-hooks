@@ -35,14 +35,14 @@ export default function App() {
   const createCall = useCallback(() => {
     setAppState(STATE_CREATING);
     return api
-        .createRoom()
-        .then((room) => room.url)
-        .catch((error) => {
-          console.error('Error creating room', error);
-          setRoomUrl(null);
-          setAppState(STATE_IDLE);
-          setApiError(true);
-        });
+      .createRoom()
+      .then((room) => room.url)
+      .catch((error) => {
+        console.error('Error creating room', error);
+        setRoomUrl(null);
+        setAppState(STATE_IDLE);
+        setApiError(true);
+      });
   }, []);
 
   /**
@@ -60,13 +60,10 @@ export default function App() {
   /**
    * Once we pass the hair check, we can actually join the call.
    */
-  const joinCall = useCallback(
-      () => {
-        console.log("joinCall: Hair looks good! Let's go to the call.");
-        callObject.join({ url: roomUrl });
-      },
-      [callObject, roomUrl],
-  );
+  const joinCall = useCallback(() => {
+    console.log("joinCall: Hair looks good! Let's go to the call.");
+    callObject.join({ url: roomUrl });
+  }, [callObject, roomUrl]);
 
   /**
    * Starts leaving the current call.
@@ -165,54 +162,57 @@ export default function App() {
    * Show the call UI if we're either joining, already joined, or are showing
    * an error that is _not_ a room API error.
    */
-  const showCall = !apiError && [STATE_JOINING, STATE_JOINED, STATE_ERROR].includes(appState);
+  const showCall =
+    !apiError && [STATE_JOINING, STATE_JOINED, STATE_ERROR].includes(appState);
   const showHairCheck = !apiError && appState === STATE_HAIRCHECK;
 
   const renderApp = () => {
     /* If something goes wrong with creating the room. */
     if (apiError) {
       return (
-          <div className="api-error">
-            <h1>Error</h1>
-            <p>
-              Room could not be created. Please check your local configuration in `api.js`. For more
-              information, check out the{' '}
-              <a href="https://github.com/daily-demos/call-object-react-daily-hooks/blob/main/README.md">
-                readme
-              </a>{' '}
-              :)
-            </p>
-          </div>
+        <div className="api-error">
+          <h1>Error</h1>
+          <p>
+            Room could not be created. Please check your local configuration in
+            `api.js`. For more information, check out the{' '}
+            <a href="https://github.com/daily-demos/call-object-react-daily-hooks/blob/main/README.md">
+              readme
+            </a>{' '}
+            :)
+          </p>
+        </div>
       );
     }
 
     /* No API errors? Let's check our hair then. */
     if (showHairCheck) {
       return (
-          <DailyProvider callObject={callObject}>
-            <HairCheck joinCall={joinCall} cancelCall={startLeavingCall} />
-          </DailyProvider>
+        <DailyProvider callObject={callObject}>
+          <HairCheck joinCall={joinCall} cancelCall={startLeavingCall} />
+        </DailyProvider>
       );
     }
 
     /* No API errors, we passed the hair check, and we've joined the call? Then show the call !*/
     if (showCall) {
       return (
-          <DailyProvider callObject={callObject}>
-            <Call />
-            <Tray leaveCall={startLeavingCall} />
-          </DailyProvider>
+        <DailyProvider callObject={callObject}>
+          <Call />
+          <Tray leaveCall={startLeavingCall} />
+        </DailyProvider>
       );
     }
 
     // The default view is the HomeScreen, from where we start the demo.
-    return <HomeScreen createCall={createCall} startHairCheck={startHairCheck} />;
+    return (
+      <HomeScreen createCall={createCall} startHairCheck={startHairCheck} />
+    );
   };
 
   return (
-      <div className="app">
-        <Header />
-        {renderApp()}
-      </div>
+    <div className="app">
+      <Header />
+      {renderApp()}
+    </div>
   );
 }

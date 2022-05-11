@@ -10,7 +10,14 @@ import './HairCheck.css';
 export default function HairCheck({ joinCall, cancelCall }) {
   const localParticipant = useLocalParticipant();
   const videoTrack = useVideoTrack(localParticipant?.session_id);
-  const { microphones, speakers, cameras, setMicrophone, setCamera, setSpeaker } = useDevices();
+  const {
+    microphones,
+    speakers,
+    cameras,
+    setMicrophone,
+    setCamera,
+    setSpeaker,
+  } = useDevices();
   const callObject = useDaily();
   const videoElement = useRef();
 
@@ -31,7 +38,8 @@ export default function HairCheck({ joinCall, cancelCall }) {
     if (!videoTrack.persistentTrack) return;
     videoElement?.current &&
       (videoElement.current.srcObject =
-        videoTrack.persistentTrack && new MediaStream([videoTrack?.persistentTrack]));
+        videoTrack.persistentTrack &&
+        new MediaStream([videoTrack?.persistentTrack]));
   }, [videoTrack.persistentTrack]);
 
   const updateMicrophone = (e) => {
@@ -50,7 +58,9 @@ export default function HairCheck({ joinCall, cancelCall }) {
     <form className="hair-check" onSubmit={join}>
       <h1>Setup your hardware</h1>
       {/*Video preview*/}
-      {videoTrack?.persistentTrack && <video autoPlay muted playsInline ref={videoElement} />}
+      {videoTrack?.persistentTrack && (
+        <video autoPlay muted playsInline ref={videoElement} />
+      )}
 
       {/*Username*/}
       <div>
@@ -68,7 +78,9 @@ export default function HairCheck({ joinCall, cancelCall }) {
         <label htmlFor="micOptions">Microphone:</label>
         <select name="micOptions" id="micSelect" onChange={updateMicrophone}>
           {microphones?.map((mic) => (
-            <option key={`mic-${mic.device.deviceId}`} value={mic.device.deviceId}>
+            <option
+              key={`mic-${mic.device.deviceId}`}
+              value={mic.device.deviceId}>
               {mic.device.label}
             </option>
           ))}
@@ -78,9 +90,14 @@ export default function HairCheck({ joinCall, cancelCall }) {
       {/*Speakers select*/}
       <div>
         <label htmlFor="speakersOptions">Speakers:</label>
-        <select name="speakersOptions" id="speakersSelect" onChange={updateSpeakers}>
+        <select
+          name="speakersOptions"
+          id="speakersSelect"
+          onChange={updateSpeakers}>
           {speakers?.map((speaker) => (
-            <option key={`speaker-${speaker.device.deviceId}`} value={speaker.device.deviceId}>
+            <option
+              key={`speaker-${speaker.device.deviceId}`}
+              value={speaker.device.deviceId}>
               {speaker.device.label}
             </option>
           ))}
@@ -92,7 +109,9 @@ export default function HairCheck({ joinCall, cancelCall }) {
         <label htmlFor="cameraOptions">Camera:</label>
         <select name="cameraOptions" id="cameraSelect" onChange={updateCamera}>
           {cameras?.map((camera) => (
-            <option key={`cam-${camera.device.deviceId}`} value={camera.device.deviceId}>
+            <option
+              key={`cam-${camera.device.deviceId}`}
+              value={camera.device.deviceId}>
               {camera.device.label}
             </option>
           ))}
