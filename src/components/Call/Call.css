@@ -9,13 +9,20 @@
   padding: 5rem;
   align-items: center;
   justify-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
   grid-auto-rows: 1fr;
   grid-column-gap: 30px;
   grid-row-gap: 30px;
   width: 100%;
   box-sizing: border-box;
   position: relative;
+}
+
+@media only screen and (max-width: 600px) {
+  .call {
+    padding: 0;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  }
 }
 
 .is-screenshare {
@@ -26,15 +33,29 @@
 }
 
 .self-view {
-  max-width: 480px;
-  max-height: 270px;
+  width: 480px;
+  height: 270px;
   position: relative;
+}
+
+@media only screen and (max-width: 600px) {
+  .self-view {
+    width: 240px;
+    height: 135px;
+  }
 }
 
 /* Hard-code the self-view size if there's no one else in the call, just to make it align with the info-box */
 .self-view.alone {
   width: 480px;
   height: 270px;
+}
+
+@media only screen and (max-width: 600px) {
+  .self-view.alone {
+    width: 240px;
+    height: 135px;
+  }
 }
 
 .self-view video {
@@ -76,8 +97,16 @@
   border-radius: 4px;
 }
 
+@media only screen and (max-width: 600px) {
+  .info-box {
+    width: auto;
+    height: auto;
+  }
+}
+
 .room-url {
   padding: 0 1rem;
   word-break: break-word;
   font-weight: normal;
+  font-size: 12px;
 }

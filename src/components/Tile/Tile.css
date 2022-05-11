@@ -1,7 +1,14 @@
 .tile-video {
-  max-width: 480px;
-  max-height: 270px;
   position: relative;
+  width: 480px;
+  height: 270px;
+}
+
+@media only screen and (max-width: 600px) {
+  .tile-video {
+    width: 240px;
+    height: 135px;
+  }
 }
 
 /* Resize remote participants when a screen is being shared */

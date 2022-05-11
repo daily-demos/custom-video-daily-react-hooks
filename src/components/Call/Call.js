@@ -26,18 +26,16 @@ export default function Call() {
 
   /* This is for displaying our self-view. */
   const localParticipant = useLocalParticipant();
-  const localParticipantVideoTrack = useVideoTrack(
-    localParticipant?.session_id,
-  );
+  const localParticipantVideoTrack = useVideoTrack(localParticipant?.session_id);
   const localVideoElement = useRef(null);
 
   useEffect(() => {
+    if (!localParticipantVideoTrack.persistentTrack) return;
     localVideoElement?.current &&
       (localVideoElement.current.srcObject =
-        localParticipantVideoTrack &&
+        localParticipantVideoTrack.persistentTrack &&
         new MediaStream([localParticipantVideoTrack?.persistentTrack]));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localParticipantVideoTrack?.persistentTrack]);
+  }, [localParticipantVideoTrack.persistentTrack]);
 
   /* This is for displaying remote participants: this includes other humans, but also screen shares. */
   const { screens } = useScreenShare();
@@ -71,11 +69,7 @@ export default function Call() {
               <Tile key={id} id={id} />
             ))}
             {screens.map((screen) => (
-              <Tile
-                key={screen.screenId}
-                id={screen.session_id}
-                isScreenShare
-              />
+              <Tile key={screen.screenId} id={screen.session_id} isScreenShare />
             ))}
           </>
         ) : (
