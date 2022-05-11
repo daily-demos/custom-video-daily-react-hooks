@@ -1,13 +1,12 @@
 import './Header.css';
 
-// Shamelessly ripped from Jess' Svelte demo
 export default function Header() {
   return (
     <header>
       <div className="header-section">
         <img src="/images/logo.svg" alt="Daily logo" />
         <span className="title">
-          Custom video app demo with Daily React Hooks
+          Custom video application demo with daily-react-hooks
         </span>
       </div>
       <div className="header-section">
