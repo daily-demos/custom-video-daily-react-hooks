@@ -1,8 +1,9 @@
+import './App.css';
+
 import React, { useEffect, useState, useCallback } from 'react';
 import DailyIframe from '@daily-co/daily-js';
 import { DailyProvider } from '@daily-co/daily-react-hooks';
 
-import './App.css';
 import api from './api';
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from './utils';
 
@@ -61,12 +62,11 @@ export default function App() {
    * Once we pass the hair check, we can actually join the call.
    */
   const joinCall = useCallback(() => {
-    console.log("joinCall: Hair looks good! Let's go to the call.");
     callObject.join({ url: roomUrl });
   }, [callObject, roomUrl]);
 
   /**
-   * Starts leaving the current call.
+   * Start leaving the current call.
    */
   const startLeavingCall = useCallback(() => {
     if (!callObject) return;
@@ -78,9 +78,8 @@ export default function App() {
         setAppState(STATE_IDLE);
       });
     } else {
-      // This will trigger a `left-meeting` event, which in turn will trigger
-      // the full clean-up as seen in handleNewMeetingState() below.
-      // This will trigger a `left-meeting` event, which in turn will trigger the full clean-up as seen in handleNewMeetingState() below.
+      /* This will trigger a `left-meeting` event, which in turn will trigger
+      the full clean-up as seen in handleNewMeetingState() below.*/
       setAppState(STATE_LEAVING);
       callObject.leave();
     }
@@ -159,15 +158,18 @@ export default function App() {
   }, [callObject]);
 
   /**
-   * Show the call UI if we're either joining, already joined, or are showing
+   * Show the call UI if we're either joining, already joined, or have encountered
    * an error that is _not_ a room API error.
    */
   const showCall =
     !apiError && [STATE_JOINING, STATE_JOINED, STATE_ERROR].includes(appState);
+
+  /* When there's no problems creating the room and startHairCheck() has been successfully called,
+  * we can show the hair check UI.*/
   const showHairCheck = !apiError && appState === STATE_HAIRCHECK;
 
   const renderApp = () => {
-    /* If something goes wrong with creating the room. */
+    // If something goes wrong with creating the room.
     if (apiError) {
       return (
         <div className="api-error">
@@ -184,7 +186,7 @@ export default function App() {
       );
     }
 
-    /* No API errors? Let's check our hair then. */
+    // No API errors? Let's check our hair then.
     if (showHairCheck) {
       return (
         <DailyProvider callObject={callObject}>
@@ -193,7 +195,7 @@ export default function App() {
       );
     }
 
-    /* No API errors, we passed the hair check, and we've joined the call? Then show the call !*/
+    // No API errors, we passed the hair check, and we've joined the call? Then show the call.
     if (showCall) {
       return (
         <DailyProvider callObject={callObject}>
