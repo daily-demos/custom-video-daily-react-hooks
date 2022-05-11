@@ -1,6 +1,6 @@
 import './Tile.css';
 import { useEffect, useRef } from 'react';
-import { useMediaTrack } from '@daily-co/daily-react-hooks';
+import { useMediaTrack, useParticipant } from '@daily-co/daily-react-hooks';
 
 export default function Tile({ id, isScreenShare }) {
   const videoTrack = useMediaTrack(id, isScreenShare ? 'screenVideo' : 'video');
@@ -9,11 +9,13 @@ export default function Tile({ id, isScreenShare }) {
   const videoElement = useRef(null);
   const audioElement = useRef(null);
 
+  const participant = useParticipant(id);
+
   useEffect(() => {
     /*  The track is ready to be played. We can show video of the remote participant in the UI.*/
     if (videoTrack?.state === 'playable') {
       videoElement.current &&
-        (videoElement.current.srcObject =
+      (videoElement.current.srcObject =
           videoTrack && new MediaStream([videoTrack.persistentTrack]));
     }
   }, [videoTrack]);
@@ -21,15 +23,16 @@ export default function Tile({ id, isScreenShare }) {
   useEffect(() => {
     if (audioTrack?.state === 'playable') {
       audioElement?.current &&
-        (audioElement.current.srcObject =
+      (audioElement.current.srcObject =
           audioTrack && new MediaStream([audioTrack.persistentTrack]));
     }
   }, [audioTrack]);
 
   return (
-    <div className={isScreenShare ? 'tile-screenshare' : 'tile-video'}>
-      {videoTrack && <video autoPlay muted playsInline ref={videoElement} />}
-      {audioTrack && <audio autoPlay playsInline ref={audioElement} />}
-    </div>
+      <div className={isScreenShare ? 'tile-screenshare' : 'tile-video'}>
+        {videoTrack && <video autoPlay muted playsInline ref={videoElement} />}
+        {audioTrack && <audio autoPlay playsInline ref={audioElement} />}
+        <div className="username">{participant?.user_name ? participant?.user_name : participant?.user_id}</div>
+      </div>
   );
 }

@@ -15,6 +15,7 @@
   grid-row-gap: 30px;
   width: 100%;
   box-sizing: border-box;
+  position: relative;
 }
 
 .is-screenshare {
@@ -27,6 +28,7 @@
 .self-view {
   max-width: 480px;
   max-height: 270px;
+  position: relative;
 }
 
 /* Hard-code the self-view size if there's no one else in the call, just to make it align with the info-box */
@@ -38,8 +40,19 @@
 .self-view video {
   /* Mirror the self-view: it's weird not seeing yourself mirrored! */
   transform: rotate3d(0, 1, 0, 180deg);
+  position: relative;
 }
 
+.username {
+  position: absolute;
+  z-index: 2;
+  color: var(--grey);
+  background-color: var(--dark-blue);
+  bottom: 0;
+  left: 0;
+  font-size: 14px;
+  padding: 0.2em 0.5em;
+}
 /*
   When someone is sharing their screen, we want to resize the participants' videos,
   so the biggest screen in our grid is the screen share.
