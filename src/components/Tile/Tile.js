@@ -33,7 +33,7 @@ export default function Tile({ id, isScreenShare }) {
       {videoTrack && <video autoPlay muted playsInline ref={videoElement} />}
       {audioTrack && <audio autoPlay playsInline ref={audioElement} />}
       <div className="username">
-        {participant?.user_name ? participant?.user_name : participant?.user_id}
+        {participant?.user_name || participant?.user_id}
       </div>
     </div>
   );

@@ -35,10 +35,6 @@ export default function HairCheck({ joinCall, cancelCall }) {
     joinCall();
   };
 
-  const cancel = () => {
-    cancelCall();
-  };
-
   useEffect(() => {
     if (!videoTrack.persistentTrack) return;
     videoElement?.current &&
@@ -75,7 +71,7 @@ export default function HairCheck({ joinCall, cancelCall }) {
               type="text"
               placeholder="Enter username"
               onChange={(e) => onChange(e)}
-              value={localParticipant?.user_name ? localParticipant?.user_name : " "}
+              value={localParticipant?.user_name || ' '}
             />
           </div>
 
@@ -118,7 +114,7 @@ export default function HairCheck({ joinCall, cancelCall }) {
           <button onClick={join} type="submit">
             Join call
           </button>
-          <button onClick={cancel} className="cancel-call">
+          <button onClick={cancelCall} className="cancel-call">
             Back to start
           </button>
         </form>

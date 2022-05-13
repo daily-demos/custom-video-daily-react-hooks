@@ -61,9 +61,9 @@ export default function App() {
   /**
    * Once we pass the hair check, we can actually join the call.
    */
-  const joinCall = (() => {
+  const joinCall = useCallback(() => {
     callObject.join({ url: roomUrl });
-  });
+  }, [callObject, roomUrl]);
 
   /**
    * Start leaving the current call.

@@ -14,7 +14,6 @@
   grid-column-gap: 30px;
   grid-row-gap: 30px;
   width: 100%;
-  box-sizing: border-box;
   position: relative;
 }
 
@@ -22,6 +21,7 @@
   .call {
     padding: 0;
     grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    grid-auto-rows: unset;
   }
 }
 
@@ -99,8 +99,9 @@
 
 @media only screen and (max-width: 600px) {
   .info-box {
-    width: auto;
+    width: 240px;
     height: auto;
+    padding: 2rem 1rem;
   }
 }
 
