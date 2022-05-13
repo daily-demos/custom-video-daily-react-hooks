@@ -7,7 +7,6 @@ async function createRoom() {
   const options = {
     properties: {
       exp,
-      enable_prejoin_ui: false, // TODO: remove me when robots are no longer needed
     },
   };
 

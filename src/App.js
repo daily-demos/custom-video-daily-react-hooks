@@ -54,7 +54,7 @@ export default function App() {
     setRoomUrl(url);
     setCallObject(newCallObject);
     setAppState(STATE_HAIRCHECK);
-    await newCallObject.preAuth({ url });
+    await newCallObject.preAuth({ url }); // add a meeting token here if your room is private
     await newCallObject.startCamera();
   }, []);
 
