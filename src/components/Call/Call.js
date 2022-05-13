@@ -54,8 +54,7 @@ export default function Call() {
             }>
             <video autoPlay muted playsInline ref={localVideoElement} />
             <div className="username">
-              You (
-              {localParticipant?.user_name || localParticipant?.user_id}
+              {localParticipant?.user_name || localParticipant?.user_id} (you)
             </div>
           </div>
         )}
