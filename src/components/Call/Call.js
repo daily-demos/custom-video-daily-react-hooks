@@ -53,6 +53,9 @@ export default function Call() {
                 : 'self-view alone'
             }>
             <video autoPlay muted playsInline ref={localVideoElement} />
+            <div className="username">
+              {localParticipant?.user_name || localParticipant?.user_id} (you)
+            </div>
           </div>
         )}
         {/*Videos of remote participants and screen shares*/}

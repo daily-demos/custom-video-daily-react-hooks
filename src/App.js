@@ -11,14 +11,16 @@ import HomeScreen from './components/HomeScreen/HomeScreen';
 import Call from './components/Call/Call';
 import Header from './components/Header/Header';
 import Tray from './components/Tray/Tray';
+import HairCheck from './components/HairCheck/HairCheck';
 
-/* We decide what UI to show to users based on the state of the app, which is dependent on the state of the call object: see line 137. */
+/* We decide what UI to show to users based on the state of the app, which is dependent on the state of the call object. */
 const STATE_IDLE = 'STATE_IDLE';
 const STATE_CREATING = 'STATE_CREATING';
 const STATE_JOINING = 'STATE_JOINING';
 const STATE_JOINED = 'STATE_JOINED';
 const STATE_LEAVING = 'STATE_LEAVING';
 const STATE_ERROR = 'STATE_ERROR';
+const STATE_HAIRCHECK = 'STATE_HAIRCHECK';
 
 export default function App() {
   const [appState, setAppState] = useState(STATE_IDLE);
@@ -27,15 +29,9 @@ export default function App() {
   const [apiError, setApiError] = useState(false);
 
   /**
-   * Show the call UI if we're either joining, already joined, or are showing
-   * an error.
-   */
-  const showCall = [STATE_JOINING, STATE_JOINED, STATE_ERROR].includes(
-    appState,
-  );
-
-  /**
-   * Creates a new call room.
+   * Create a new call room. This function will return the newly created room URL.
+   * We'll need this URL when pre-authorizing (https://docs.daily.co/reference/rn-daily-js/instance-methods/pre-auth)
+   * or joining (https://docs.daily.co/reference/rn-daily-js/instance-methods/join) a call.
    */
   const createCall = useCallback(() => {
     setAppState(STATE_CREATING);
@@ -51,18 +47,26 @@ export default function App() {
   }, []);
 
   /**
-   * Starts joining an existing call.
+   * We've created a room, so let's start the hair check. We won't be joining the call yet.
    */
-  const startJoiningCall = useCallback((url) => {
+  const startHairCheck = useCallback(async (url) => {
     const newCallObject = DailyIframe.createCallObject();
     setRoomUrl(url);
     setCallObject(newCallObject);
-    setAppState(STATE_JOINING);
-    newCallObject.join({ url });
+    setAppState(STATE_HAIRCHECK);
+    await newCallObject.preAuth({ url }); // add a meeting token here if your room is private
+    await newCallObject.startCamera();
   }, []);
 
   /**
-   * Starts leaving the current call.
+   * Once we pass the hair check, we can actually join the call.
+   */
+  const joinCall = useCallback(() => {
+    callObject.join({ url: roomUrl });
+  }, [callObject, roomUrl]);
+
+  /**
+   * Start leaving the current call.
    */
   const startLeavingCall = useCallback(() => {
     if (!callObject) return;
@@ -74,7 +78,8 @@ export default function App() {
         setAppState(STATE_IDLE);
       });
     } else {
-      /* This will trigger a `left-meeting` event, which in turn will trigger the full clean-up as seen in handleNewMeetingState() below. */
+      /* This will trigger a `left-meeting` event, which in turn will trigger
+      the full clean-up as seen in handleNewMeetingState() below.*/
       setAppState(STATE_LEAVING);
       callObject.leave();
     }
@@ -86,8 +91,8 @@ export default function App() {
    */
   useEffect(() => {
     const url = roomUrlFromPageUrl();
-    url && startJoiningCall(url);
-  }, [startJoiningCall]);
+    url && startHairCheck(url);
+  }, [startHairCheck]);
 
   /**
    * Update the page's URL to reflect the active call when roomUrl changes.
@@ -139,7 +144,7 @@ export default function App() {
       /*
         We can't use the useDailyEvent hook (https://docs.daily.co/reference/daily-react-hooks/use-daily-event) for this
         because right now, we're not inside a <DailyProvider/> (https://docs.daily.co/reference/daily-react-hooks/daily-provider)
-        context yet. We can't access the call object via daily-react-hooks just yet, but we will later in Call.js.
+        context yet. We can't access the call object via daily-react-hooks just yet, but we will later in Call.js and HairCheck.js!
       */
       callObject.on(event, handleNewMeetingState);
     }
@@ -152,10 +157,21 @@ export default function App() {
     };
   }, [callObject]);
 
-  return (
-    <div className="app">
-      <Header />
-      {apiError ? (
+  /**
+   * Show the call UI if we're either joining, already joined, or have encountered
+   * an error that is _not_ a room API error.
+   */
+  const showCall =
+    !apiError && [STATE_JOINING, STATE_JOINED, STATE_ERROR].includes(appState);
+
+  /* When there's no problems creating the room and startHairCheck() has been successfully called,
+  * we can show the hair check UI.*/
+  const showHairCheck = !apiError && appState === STATE_HAIRCHECK;
+
+  const renderApp = () => {
+    // If something goes wrong with creating the room.
+    if (apiError) {
+      return (
         <div className="api-error">
           <h1>Error</h1>
           <p>
@@ -167,17 +183,38 @@ export default function App() {
             :)
           </p>
         </div>
-      ) : showCall ? (
+      );
+    }
+
+    // No API errors? Let's check our hair then.
+    if (showHairCheck) {
+      return (
+        <DailyProvider callObject={callObject}>
+          <HairCheck joinCall={joinCall} cancelCall={startLeavingCall} />
+        </DailyProvider>
+      );
+    }
+
+    // No API errors, we passed the hair check, and we've joined the call? Then show the call.
+    if (showCall) {
+      return (
         <DailyProvider callObject={callObject}>
           <Call />
           <Tray leaveCall={startLeavingCall} />
         </DailyProvider>
-      ) : (
-        <HomeScreen
-          createCall={createCall}
-          startJoiningCall={startJoiningCall}
-        />
-      )}
+      );
+    }
+
+    // The default view is the HomeScreen, from where we start the demo.
+    return (
+      <HomeScreen createCall={createCall} startHairCheck={startHairCheck} />
+    );
+  };
+
+  return (
+    <div className="app">
+      <Header />
+      {renderApp()}
     </div>
   );
 }

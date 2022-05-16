@@ -1,4 +1,5 @@
 .tile-video {
+  position: relative;
   width: 480px;
   height: 270px;
 }
