@@ -68,6 +68,7 @@ export default function HairCheck({ joinCall, cancelCall }) {
           <div>
             <label htmlFor="username">Your name:</label>
             <input
+              name="username"
               type="text"
               placeholder="Enter username"
               onChange={(e) => onChange(e)}
