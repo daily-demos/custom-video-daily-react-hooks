@@ -1,10 +1,15 @@
-# Custom React video chat app with Daily React Hooks
+# Custom React video app with Daily React Hooks
+This repository is part of [a Daily blog post series](https://www.daily.co/blog/custom-video-app-with-daily-react-hooks-part-one/) on using the [Daily React Hooks library]() to create a custom video calling app.
 
-This is a demo of a [React app](https://create-react-app.dev/) using  Daily's call object API and the [Daily React Hooks library](https://docs.daily.co/reference/daily-react-hooks) to showcase a basic video web app:
+The first post in the series can be found [here](https://www.daily.co/blog/custom-video-app-with-daily-react-hooks-part-one/). The code in the [v1.0](https://github.com/daily-demos/custom-video-daily-react-hooks/tree/1.0) tag corresponds to this blog post.
 
-![end-of-post](https://user-images.githubusercontent.com/12814720/167368289-04e2fd02-5e44-41bc-b1c2-e6db7922b1a1.png)
+The second post in the series will be up soon. The code relevant to this post can already be found in the [v2.0](https://github.com/daily-demos/custom-video-daily-react-hooks/tree/v2.0) tag.
 
-Test a deployed version of this app at [https://custom-video-daily-react-hooks.netlify.app/](https://custom-video-daily-react-hooks.netlify.app/).
+Deployed versions of the demo can be found here:
+- v1.0: [custom-video-daily-react-hooks-v1](https://custom-video-daily-react-hooks-v1.netlify.app)
+- v2.0: [custom-video-daily-react-hooks-v2](https://custom-video-daily-react-hooks-v2.netlify.app)
+
+Test a deployed version of the `main` branch at [https://custom-video-daily-react-hooks.netlify.app/](https://custom-video-daily-react-hooks.netlify.app/).
 
 ---
 
