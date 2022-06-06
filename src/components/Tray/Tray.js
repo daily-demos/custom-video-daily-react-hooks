@@ -6,7 +6,9 @@ import {
   useVideoTrack,
   useAudioTrack,
 } from '@daily-co/daily-react-hooks';
+
 import MeetingInformation from '../MeetingInformation/MeetingInformation';
+import Chat from '../Chat/Chat';
 
 import './Tray.css';
 import {
@@ -17,6 +19,7 @@ import {
   MicrophoneOn,
   Screenshare,
   Info,
+  ChatIcon,
 } from './Icons';
 
 export default function Tray({ leaveCall }) {
@@ -25,6 +28,7 @@ export default function Tray({ leaveCall }) {
     useScreenShare();
 
   const [showMeetingInformation, setShowMeetingInformation] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   const localParticipant = useLocalParticipant();
   const localVideo = useVideoTrack(localParticipant?.session_id);
@@ -43,19 +47,26 @@ export default function Tray({ leaveCall }) {
   const toggleScreenShare = () =>
     isSharingScreen ? stopScreenShare() : startScreenShare();
 
-  const leave = () => {
-    leaveCall();
-  };
-
   const toggleMeetingInformation = () => {
     showMeetingInformation
       ? setShowMeetingInformation(false)
       : setShowMeetingInformation(true);
   };
 
+  const toggleChat = () => {
+    showChat
+      ? setShowChat(false)
+      : setShowChat(true);
+  };
+
   return (
     <div className="tray">
       {showMeetingInformation && <MeetingInformation />}
+      {/* The chat messages 'live' in the <Chat/> component's state. We can't just remove the component
+       from the DOM when hiding the chat, because that would cause us to lose that state. So we're
+       choosing a slightly different approach of toggling the chat: always render the component, but only
+       render its HTML when showChat is set to true. */}
+      <Chat showChat={showChat}/>
       <div className="tray-buttons-container">
         <div className="controls">
           <button onClick={toggleVideo}>
@@ -76,9 +87,13 @@ export default function Tray({ leaveCall }) {
             <Info />
             {showMeetingInformation ? 'Hide info' : 'Show info'}
           </button>
+          <button onClick={toggleChat}>
+            <ChatIcon />
+            {showChat ? 'Hide chat' : 'Show chat'}
+          </button>
         </div>
         <div className="leave">
-          <button onClick={leave}>
+          <button onClick={leaveCall}>
             <Leave /> Leave call
           </button>
         </div>

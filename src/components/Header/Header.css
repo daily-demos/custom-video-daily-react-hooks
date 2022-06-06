@@ -7,7 +7,7 @@ header {
   background-color: var(--white);
 }
 
-span {
+header span {
   font-size: 12px;
   font-weight: 600;
 }
