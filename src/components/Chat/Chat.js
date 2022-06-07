@@ -81,7 +81,7 @@ export default function Chat({ showChat }) {
                 value={inputValue}
                 onChange={(e) => onChange(e)}
               />
-              <button type="submit" className="chat-submit-button" onClick={handleSubmit}>
+              <button type="submit" className="chat-submit-button">
                 <Arrow />
               </button>
             </form>
