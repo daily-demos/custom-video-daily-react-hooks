@@ -60,34 +60,30 @@ export default function Chat({ showChat }) {
     setInputValue('');
   };
 
-  return (
-    <>
-      {showChat ? (
-        <section className="chat">
-          <ul className="chat-messages">
-            {messages?.map((message, index) => (
-              <li key={`message-${index}`} className="chat-message">
-                <span className="chat-message-author">{message?.name}</span>:{' '}
-                <p className="chat-message-body">{message?.msg}</p>
-              </li>
-            ))}
-          </ul>
-          <div className="add-message">
-            <form className="chat-form" onSubmit={handleSubmit}>
-              <input
-                className="chat-input"
-                type="text"
-                placeholder="Type your message here.."
-                value={inputValue}
-                onChange={(e) => onChange(e)}
-              />
-              <button type="submit" className="chat-submit-button">
-                <Arrow />
-              </button>
-            </form>
-          </div>
-        </section>
-      ) : null}
-    </>
-  );
+  return showChat ? (
+    <section className="chat">
+      <ul className="chat-messages">
+        {messages?.map((message, index) => (
+          <li key={`message-${index}`} className="chat-message">
+            <span className="chat-message-author">{message?.name}</span>:{' '}
+            <p className="chat-message-body">{message?.msg}</p>
+          </li>
+        ))}
+      </ul>
+      <div className="add-message">
+        <form className="chat-form" onSubmit={handleSubmit}>
+          <input
+            className="chat-input"
+            type="text"
+            placeholder="Type your message here.."
+            value={inputValue}
+            onChange={(e) => onChange(e)}
+          />
+          <button type="submit" className="chat-submit-button">
+            <Arrow />
+          </button>
+        </form>
+      </div>
+    </section>
+  ) : null;
 }
