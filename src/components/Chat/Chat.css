@@ -12,6 +12,13 @@
   border-left: 1px solid var(--grey);
 }
 
+@media only screen and (max-width: 600px) {
+  .chat {
+    width: 100%;
+    z-index: 3; /* overlay the usernames in the Call screen*/
+  }
+}
+
 .add-message {
   padding: 1rem;
   border-top: 1px solid var(--grey);
@@ -53,6 +60,7 @@
   background: transparent;
   border: 0;
   flex-grow: 1;
+  padding: .5rem;
 }
 
 .chat-submit-button {
