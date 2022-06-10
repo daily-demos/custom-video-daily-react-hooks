@@ -79,7 +79,7 @@ export default function Tray({ leaveCall }) {
        from the DOM when hiding the chat, because that would cause us to lose that state. So we're
        choosing a slightly different approach of toggling the chat: always render the component, but only
        render its HTML when showChat is set to true. */}
-      <Chat showChat={showChat} />
+      <Chat showChat={showChat} toggleChat={toggleChat} />
       <div className="tray-buttons-container">
         <div className="controls">
           <button onClick={toggleVideo}>

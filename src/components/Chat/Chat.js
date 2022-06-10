@@ -4,7 +4,7 @@ import { useAppMessage, useLocalParticipant } from '@daily-co/daily-react-hooks'
 import { Arrow } from '../Tray/Icons/index';
 import './Chat.css';
 
-export default function Chat({ showChat }) {
+export default function Chat({ showChat, toggleChat }) {
   const localParticipant = useLocalParticipant();
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -56,12 +56,14 @@ export default function Chat({ showChat }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!inputValue) return; // don't allow people to submit empty strings
     sendMessage(inputValue);
     setInputValue('');
   };
 
   return showChat ? (
-    <section className="chat">
+    <aside className="chat">
+      <button onClick={toggleChat} className="close-chat">Close chat</button>
       <ul className="chat-messages">
         {messages?.map((message, index) => (
           <li key={`message-${index}`} className="chat-message">
@@ -84,6 +86,6 @@ export default function Chat({ showChat }) {
           </button>
         </form>
       </div>
-    </section>
+    </aside>
   ) : null;
 }

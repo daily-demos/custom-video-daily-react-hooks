@@ -66,3 +66,17 @@
 .chat-submit-button {
   background: transparent;
 }
+
+.close-chat {
+  background: var(--turquoise);
+  border: 1px solid var(--grey);
+  padding: .5rem 1rem;
+  margin: 1rem;
+  align-self: end;
+  font-weight: normal;
+}
+
+.close-chat:hover {
+  background: var(--grey);
+  border: 1px solid var(--dark-blue-border);
+}
