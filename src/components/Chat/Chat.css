@@ -1,0 +1,82 @@
+.chat {
+  background: var(--white);
+  position: absolute;
+  top: 4rem;
+  bottom: 4rem;
+  right: 0;
+  overflow-y: auto;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-left: 1px solid var(--grey);
+}
+
+@media only screen and (max-width: 600px) {
+  .chat {
+    width: 100%;
+    z-index: 3; /* overlay the usernames in the Call screen*/
+  }
+}
+
+.add-message {
+  padding: 1rem;
+  border-top: 1px solid var(--grey);
+  border-bottom: 1px solid var(--grey);
+}
+
+.chat-messages {
+  padding: 1rem;
+  margin: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.chat-message {
+  list-style-type: none;
+  margin-bottom: 1rem;
+}
+
+.chat-message-author {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.chat-message-body {
+  text-align: left;
+  margin: 0;
+  display: inline;
+  color: var(--dark-grey);
+  font-size: 14px;
+}
+
+.chat-form {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--grey);
+}
+
+.chat-input {
+  background: transparent;
+  border: 0;
+  flex-grow: 1;
+  padding: .5rem;
+}
+
+.chat-submit-button {
+  background: transparent;
+}
+
+.close-chat {
+  background: var(--turquoise);
+  border: 1px solid var(--grey);
+  padding: .5rem 1rem;
+  margin: 1rem;
+  align-self: end;
+  font-weight: normal;
+}
+
+.close-chat:hover {
+  background: var(--grey);
+  border: 1px solid var(--dark-blue-border);
+}
