@@ -1,15 +1,16 @@
 # Custom React video app with Daily React Hooks
-This repository is part of [a Daily blog post series](https://www.daily.co/blog/custom-video-app-with-daily-react-hooks-part-one/) on using the [Daily React Hooks library]() to create a custom video calling app.
+This repository is part of [a Daily blog post series]([https://www.daily.co/blog/custom-video-app-with-daily-react-hooks-part-one/](https://www.daily.co/blog/tag/daily-react-hooks/)) on using the [Daily React Hooks library](https://www.daily.co/blog/introducing-the-new-daily-react-hooks-library/) to create a custom video calling app.
 
 The first post in the series can be found [here](https://www.daily.co/blog/custom-video-app-with-daily-react-hooks-part-one/). The code in the [v1.0](https://github.com/daily-demos/custom-video-daily-react-hooks/tree/1.0) tag corresponds to this blog post.
 
-The second post in the series will be up soon. The code relevant to this post can already be found in the [v2.0](https://github.com/daily-demos/custom-video-daily-react-hooks/tree/v2.0) tag.
+The second post in the series is [here](https://www.daily.co/blog/add-a-prejoin-ui-to-a-custom-video-app-with-the-daily-react-hooks-library-part-2/). The code relevant to this post can be found in the [v2.0](https://github.com/daily-demos/custom-video-daily-react-hooks/tree/v2.0) tag.
+
+The third post in the series, where we'll add chat messages, will be up soon! But its code can already be found in the `main` branch :-)
 
 Deployed versions of the demo can be found here:
 - v1.0: [custom-video-daily-react-hooks-v1](https://custom-video-daily-react-hooks-v1.netlify.app)
 - v2.0: [custom-video-daily-react-hooks-v2](https://custom-video-daily-react-hooks-v2.netlify.app)
-
-Test a deployed version of the `main` branch at [https://custom-video-daily-react-hooks.netlify.app/](https://custom-video-daily-react-hooks.netlify.app/).
+- main: [main](https://custom-video-daily-react-hooks.netlify.app)
 
 ---
 
