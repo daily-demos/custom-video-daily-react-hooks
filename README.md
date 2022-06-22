@@ -12,7 +12,7 @@ Deployed versions of the demo can be found here:
 
 - v1.0: [custom-video-daily-react-hooks-v1](https://custom-video-daily-react-hooks-v1.netlify.app)
 - v2.0: [custom-video-daily-react-hooks-v2](https://custom-video-daily-react-hooks-v2.netlify.app)
-- main: [main](https://custom-video-daily-react-hooks.netlify.app)
+- main: [main](https://daily-react-hooks.netlify.app/)
 
 ---
 
