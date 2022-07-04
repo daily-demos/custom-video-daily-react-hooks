@@ -23,7 +23,7 @@ async function createRoom() {
     Uncomment the request below to test the "create room" functionality locally.
     Don't forget to comment out the request above, too!
   */
-  // const response = await fetch(`${process.env.REACT_APP_DAILY_API_KEY}/rooms/`, {
+  // const response = await fetch(`https://api.daily.co/v1/rooms/`, {
   //   method: 'POST',
   //   body: JSON.stringify(options),
   //   headers: {
