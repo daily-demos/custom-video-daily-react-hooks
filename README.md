@@ -35,7 +35,7 @@ To run this demo locally:
 
 ### Creating new rooms locally
 
-To create rooms new rooms via the app UI while testing locally, follow the these additional steps:
+To create rooms new rooms via the app UI while testing locally, follow these additional steps:
 
 - rename `example.env` to `.env`
 - add your Daily API key (available in the Daily [dashboard](https://dashboard.daily.co/developers)) to `.env`
@@ -49,7 +49,7 @@ REACT_APP_DAILY_API_KEY=<-Your Daily API key here->
 ```javascript
 // api.js
 // make sure this request is uncommented and the one above it is commented out
-const response = await fetch(`${process.env.REACT_APP_DAILY_API_KEY}/rooms/`, {
+const response = await fetch(`https://api.daily.co/v1/rooms/`, {
   method: 'POST',
   body: JSON.stringify(options),
   headers: {
