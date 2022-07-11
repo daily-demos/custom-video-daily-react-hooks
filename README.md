@@ -2,17 +2,43 @@
 
 This repository is part of [a Daily blog post series](<[https://www.daily.co/blog/custom-video-app-with-daily-react-hooks-part-one/](https://www.daily.co/blog/tag/daily-react-hooks/)>) on using the [Daily React Hooks library](https://www.daily.co/blog/introducing-the-new-daily-react-hooks-library/) to create a custom video calling app.
 
-The first post in the series can be found [here](https://www.daily.co/blog/custom-video-app-with-daily-react-hooks-part-one/). The code in the [v1.0](https://github.com/daily-demos/custom-video-daily-react-hooks/tree/1.0) tag corresponds to this blog post.
+|                                                                                                                                                                                                     |                                                                                                                                |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| ![Prejoin UI](https://lh5.googleusercontent.com/pybG1ZczFSgh_wn5j-LEobidbl1TgjTj9bZxOdj1UbYH5XH-XoBBBH7ZIREx4QD_8LlgSpL-vXNFVlcNPedq2poGFhvNPZhWb5XqWzXwNBpxbzc2JoEwUBwKH4B1U1Y5qgTLDuvrfKvwkwKD5g) | ![in-call UI with multiple participants](https://www.daily.co/blog/content/images/size/w1600/2022/05/end-of-this-post-opt.png) |
+| ![in-call UI with one participant](https://www.daily.co/blog/content/images/size/w1600/2022/05/waiting-for-others-opt.png)                                                                          | ![Active screen share](https://www.daily.co/blog/content/images/size/w1600/2022/05/screenshare-opt.png)                        |
+| ![Chat UI](https://www.daily.co/blog/content/images/2022/06/ss1.png)                                                                                                                                |
 
-The second post in the series is [here](https://www.daily.co/blog/add-a-prejoin-ui-to-a-custom-video-app-with-the-daily-react-hooks-library-part-2/). The code relevant to this post can be found in the [v2.0](https://github.com/daily-demos/custom-video-daily-react-hooks/tree/v2.0) tag.
+## Features
 
-The third post in the series, where we'll add chat messages, will be up soon! But its code can already be found in the `main` branch :-)
+This app includes:
 
-Deployed versions of the demo can be found here:
+- Custom video tiles using Daily's APIs for multi-participant calls
+- A tray for local device management
+- Prejoin UI for device management before joining the call
+- Screen sharing
+- Custom text-based chat while in the call
+- Custom usernames
+- "Waiting for others" card
 
+This is a demo app meant to showcase how to interact with the Daily APIs. It is not optimized for large calls. (Read our [large meetings series](https://www.daily.co/blog/tag/large-meeting-series/) for more information.)
+
+## Tutorial series
+
+Find our full series on how we built this app on the [Daily blog](https://www.daily.co/blog/tag/daily-react-hooks/).
+
+The first post in the series covers how to [build the video components](https://www.daily.co/blog/custom-video-app-with-daily-react-hooks-part-one/). The code in the [v1.0](https://github.com/daily-demos/custom-video-daily-react-hooks/tree/1.0) tag corresponds to this blog post.
+
+The second post in the series covers how to build a [prejoin UI](https://www.daily.co/blog/add-a-prejoin-ui-to-a-custom-video-app-with-the-daily-react-hooks-library-part-2/). The code relevant to this post can be found in the [v2.0](https://github.com/daily-demos/custom-video-daily-react-hooks/tree/v2.0) tag.
+
+The third post in the series covers how to build a [custom chat widget](https://www.daily.co/blog/add-chat-to-your-custom-video-app-with-daily-react-hooks-part-3/).
+
+All features mentioned above are available on `main`. Earlier versions exclude later features.
+
+Deployed versions of the demo can be found below:
+
+- main: [main](https://daily-react-hooks.netlify.app/)
 - v1.0: [custom-video-daily-react-hooks-v1](https://custom-video-daily-react-hooks-v1.netlify.app)
 - v2.0: [custom-video-daily-react-hooks-v2](https://custom-video-daily-react-hooks-v2.netlify.app)
-- main: [main](https://daily-react-hooks.netlify.app/)
 
 ---
 
