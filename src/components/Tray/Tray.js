@@ -6,6 +6,7 @@ import {
   useVideoTrack,
   useAudioTrack,
   useDailyEvent,
+  useLiveStreaming,
 } from '@daily-co/daily-react-hooks';
 
 import MeetingInformation from '../MeetingInformation/MeetingInformation';
@@ -27,6 +28,7 @@ import {
 export default function Tray({ leaveCall }) {
   const callObject = useDaily();
   const { isSharingScreen, startScreenShare, stopScreenShare } = useScreenShare();
+  const { isLiveStreaming } = useLiveStreaming();
 
   const [showMeetingInformation, setShowMeetingInformation] = useState(false);
   const [showChat, setShowChat] = useState(false);
@@ -72,6 +74,19 @@ export default function Tray({ leaveCall }) {
     }
   };
 
+  const startLiveStream = () => {
+    callObject?.startLiveStreaming({
+      rtmpUrl: process.env.REACT_APP_RTMP_URL,
+      layout: {
+        preset: 'custom',
+        composition_params: {
+          mode: 'grid',
+          'videoSettings.preferScreenshare': false,
+        },
+      },
+    });
+  };
+
   return (
     <div className="tray">
       {showMeetingInformation && <MeetingInformation />}
@@ -98,6 +113,9 @@ export default function Tray({ leaveCall }) {
           <button onClick={toggleScreenShare}>
             <Screenshare />
             {isSharingScreen ? 'Stop sharing screen' : 'Share screen'}
+          </button>
+          <button onClick={startLiveStream}>
+            {isLiveStreaming ? 'Stop live stream' : 'Start live streaming'}
           </button>
           <button onClick={toggleMeetingInformation}>
             <Info />

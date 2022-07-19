@@ -5,6 +5,7 @@ import {
   useScreenShare,
   useLocalParticipant,
   useDailyEvent,
+  useDaily,
 } from '@daily-co/daily-react-hooks';
 
 import './Call.css';
@@ -14,6 +15,7 @@ import UserMediaError from '../UserMediaError/UserMediaError';
 export default function Call() {
   /* If a participant runs into a getUserMedia() error, we need to warn them. */
   const [getUserMediaError, setGetUserMediaError] = useState(false);
+  const callObject = useDaily();
 
   /* We can use the useDailyEvent() hook to listen for daily-js events. Here's a full list
    * of all events: https://docs.daily.co/reference/daily-js/events */
@@ -38,7 +40,35 @@ export default function Call() {
   }, [localParticipantVideoTrack.persistentTrack]);
 
   /* This is for displaying remote participants: this includes other humans, but also screen shares. */
-  const { screens } = useScreenShare();
+
+  const onLocalScreenShareStarted = () => {
+    const vcsLayout = {
+      layout: {
+        preset: 'custom',
+        composition_params: {
+          mode: 'dominant',
+          'videoSettings.preferScreenshare': true,
+        },
+      },
+    };
+    //@ts-ignore
+    callObject?.updateLiveStreaming(vcsLayout);
+  };
+  const onLocalScreenShareStopped = () => {
+    const vcsLayout = {
+      layout: {
+        preset: 'custom',
+        composition_params: {
+          mode: 'grid',
+          'videoSettings.preferScreenshare': false,
+        },
+      },
+    };
+    //@ts-ignore
+    callObject?.updateLiveStreaming(vcsLayout);
+  };
+  const { screens } = useScreenShare({ onLocalScreenShareStarted, onLocalScreenShareStopped });
+
   const remoteParticipantIds = useParticipantIds({ filter: 'remote' });
 
   const renderCallScreen = () => {
