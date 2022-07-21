@@ -9,6 +9,7 @@ import {
 import './Call.css';
 import Tile from '../Tile/Tile';
 import UserMediaError from '../UserMediaError/UserMediaError';
+import api from '../../api';
 
 export default function Call() {
   /* If a participant runs into a getUserMedia() error, we need to warn them. */

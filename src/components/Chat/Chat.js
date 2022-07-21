@@ -1,7 +1,5 @@
 import { useCallback, useState, useEffect } from 'react';
-import { useLocalParticipant, useRoom } from '@daily-co/daily-react-hooks';
-
-import { Arrow } from '../Tray/Icons/index';
+import { useDailyEvent, useLocalParticipant, useRoom } from '@daily-co/daily-react-hooks';
 import './Chat.css';
 
 export default function Chat({ showChat }) {
@@ -47,7 +45,6 @@ export default function Chat({ showChat }) {
   // INITIATE COMETCHAT WIDGET!
   useEffect(() => {
     if (loaded) return;
-    // INITIALIZE COMETCHAT WIDGET
     window.CometChatWidget.init({
       appID: process.env.REACT_APP_COMET_CHAT_APP_ID,
       appRegion: process.env.REACT_APP_COMET_CHAT_APP_REGION,
@@ -79,9 +76,6 @@ export default function Chat({ showChat }) {
 
   return (
     <aside className={`chat ${!showChat ? 'hidden' : ''}`}>
-      {/* <button onClick={toggleChat} className="close-chat">
-        <Arrow />
-      </button> */}
       <div id="cometchat"></div>
     </aside>
   );
