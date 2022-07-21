@@ -10,10 +10,12 @@ import {
 import './Call.css';
 import Tile from '../Tile/Tile';
 import UserMediaError from '../UserMediaError/UserMediaError';
+import api from '../../api';
 
 export default function Call() {
   /* If a participant runs into a getUserMedia() error, we need to warn them. */
   const [getUserMediaError, setGetUserMediaError] = useState(false);
+  const localParticipant = useLocalParticipant();
 
   /* We can use the useDailyEvent() hook to listen for daily-js events. Here's a full list
    * of all events: https://docs.daily.co/reference/daily-js/events */
@@ -25,7 +27,6 @@ export default function Call() {
   );
 
   /* This is for displaying our self-view. */
-  const localParticipant = useLocalParticipant();
   const localParticipantVideoTrack = useVideoTrack(localParticipant?.session_id);
   const localVideoElement = useRef(null);
 
