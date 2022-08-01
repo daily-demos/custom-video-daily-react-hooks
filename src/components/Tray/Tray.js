@@ -22,11 +22,15 @@ import {
   Info,
   ChatIcon,
   ChatHighlighted,
+  RaiseHand,
+  LowerHand,
 } from './Icons';
+import { useHandRaising } from '../../hooks/useHandRaising';
 
 export default function Tray({ leaveCall }) {
   const callObject = useDaily();
   const { isSharingScreen, startScreenShare, stopScreenShare } = useScreenShare();
+  const { toggleHandRaising, isHandRaised } = useHandRaising();
 
   const [showMeetingInformation, setShowMeetingInformation] = useState(false);
   const [showChat, setShowChat] = useState(false);
@@ -72,6 +76,7 @@ export default function Tray({ leaveCall }) {
     }
   };
 
+
   return (
     <div className="tray">
       {showMeetingInformation && <MeetingInformation />}
@@ -106,6 +111,10 @@ export default function Tray({ leaveCall }) {
           <button onClick={toggleChat}>
             {newChatMessage ? <ChatHighlighted /> : <ChatIcon />}
             {showChat ? 'Hide chat' : 'Show chat'}
+          </button>
+          <button onClick={toggleHandRaising}>
+            {isHandRaised ? <LowerHand /> : <RaiseHand />}
+            {isHandRaised ? 'Lower hand' : 'Raise hand'}
           </button>
         </div>
         <div className="leave">
