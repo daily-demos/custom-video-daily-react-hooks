@@ -24,19 +24,6 @@ export default function Call() {
     }, []),
   );
 
-  /* This is for displaying our self-view. */
-  const localParticipant = useLocalParticipant();
-  const localParticipantVideoTrack = useVideoTrack(localParticipant?.session_id);
-  const localVideoElement = useRef(null);
-
-  useEffect(() => {
-    if (!localParticipantVideoTrack.persistentTrack) return;
-    localVideoElement?.current &&
-      (localVideoElement.current.srcObject =
-        localParticipantVideoTrack.persistentTrack &&
-        new MediaStream([localParticipantVideoTrack?.persistentTrack]));
-  }, [localParticipantVideoTrack.persistentTrack]);
-
   /* This is for displaying remote participants: this includes other humans, but also screen shares. */
   const { screens } = useScreenShare();
   const remoteParticipantIds = useParticipantIds({ filter: 'remote' });
@@ -45,19 +32,10 @@ export default function Call() {
     return (
       <div className={`${screens.length > 0 ? 'is-screenshare' : 'call'}`}>
         {/*Your self view*/}
-        {localParticipant && (
-          <div
-            className={
-              remoteParticipantIds?.length > 0 || screens?.length > 0
-                ? 'self-view'
-                : 'self-view alone'
-            }>
-            <video autoPlay muted playsInline ref={localVideoElement} />
-            <div className="username">
-              {localParticipant?.user_name || localParticipant?.user_id} (you)
-            </div>
-          </div>
-        )}
+        <Tile
+          isLocalParticipant
+          multipleParticipants={remoteParticipantIds?.length > 0 || screens?.length > 0}
+        />
         {/*Videos of remote participants and screen shares*/}
         {remoteParticipantIds?.length > 0 || screens?.length > 0 ? (
           <>

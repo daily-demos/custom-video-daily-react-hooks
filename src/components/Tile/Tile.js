@@ -1,8 +1,28 @@
 import './Tile.css';
 import { useEffect, useRef } from 'react';
-import { useMediaTrack, useParticipant } from '@daily-co/daily-react-hooks';
+import {
+  useLocalParticipant,
+  useMediaTrack,
+  useParticipant,
+  useVideoTrack,
+} from '@daily-co/daily-react-hooks';
+import { RaiseHand} from "../Tray/Icons";
 
-export default function Tile({ id, isScreenShare }) {
+export default function Tile({ id, isScreenShare, isLocalParticipant, multipleParticipants }) {
+  /* This is for displaying our self-view. */
+  const localParticipant = useLocalParticipant();
+  const localParticipantVideoTrack = useVideoTrack(localParticipant?.session_id);
+  const localVideoElement = useRef(null);
+
+  useEffect(() => {
+    if (!localParticipantVideoTrack.persistentTrack) return;
+    localVideoElement?.current &&
+      (localVideoElement.current.srcObject =
+        localParticipantVideoTrack.persistentTrack &&
+        new MediaStream([localParticipantVideoTrack?.persistentTrack]));
+  }, [localParticipantVideoTrack.persistentTrack]);
+
+  /* This is for remote participants */
   const videoTrack = useMediaTrack(id, isScreenShare ? 'screenVideo' : 'video');
   const audioTrack = useMediaTrack(id, isScreenShare ? 'screenAudio' : 'audio');
 
@@ -29,12 +49,26 @@ export default function Tile({ id, isScreenShare }) {
   }, [audioTrack]);
 
   return (
-    <div className={isScreenShare ? 'tile-screenshare' : 'tile-video'}>
-      {videoTrack && <video autoPlay muted playsInline ref={videoElement} />}
-      {audioTrack && <audio autoPlay playsInline ref={audioElement} />}
-      <div className="username">
-        {participant?.user_name || participant?.user_id}
-      </div>
-    </div>
+    <>
+      {isLocalParticipant && (
+        <div className={multipleParticipants ? 'self-view' : 'self-view alone'}>
+          <video autoPlay muted playsInline ref={localVideoElement} />
+          <div className="hand-raised"><RaiseHand/></div>
+          <div className="tile-info">
+            {localParticipant?.user_name || localParticipant?.user_id} (you)
+          </div>
+        </div>
+      )}
+      {!isLocalParticipant && (
+        <div className={isScreenShare ? 'tile-screenshare' : 'tile-video'}>
+          {videoTrack && <video autoPlay muted playsInline ref={videoElement} />}
+          {audioTrack && <audio autoPlay playsInline ref={audioElement} />}
+          <div className="hand-raised"><RaiseHand/></div>
+          <div className="tile-info">
+            {participant?.user_name || participant?.user_id}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
