@@ -33,7 +33,7 @@ export default function Call() {
   /* This is for displaying our self-view. */
   const localParticipant = useLocalParticipant();
   const isAlone = useMemo(
-    () => remoteParticipantIds?.length > 0 || screens?.length > 0,
+    () => remoteParticipantIds?.length < 1 || screens?.length < 1,
     [remoteParticipantIds, screens],
   );
 
