@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import {
   useParticipantIds,
   useVideoTrack,
@@ -10,6 +10,8 @@ import {
 import './Call.css';
 import Tile from '../Tile/Tile';
 import UserMediaError from '../UserMediaError/UserMediaError';
+import Username from '../Username/Username';
+import TileVideo from '../TileVideo/TileVideo';
 
 export default function Call() {
   /* If a participant runs into a getUserMedia() error, we need to warn them. */
@@ -24,38 +26,24 @@ export default function Call() {
     }, []),
   );
 
-  /* This is for displaying our self-view. */
-  const localParticipant = useLocalParticipant();
-  const localParticipantVideoTrack = useVideoTrack(localParticipant?.session_id);
-  const localVideoElement = useRef(null);
-
-  useEffect(() => {
-    if (!localParticipantVideoTrack.persistentTrack) return;
-    localVideoElement?.current &&
-      (localVideoElement.current.srcObject =
-        localParticipantVideoTrack.persistentTrack &&
-        new MediaStream([localParticipantVideoTrack?.persistentTrack]));
-  }, [localParticipantVideoTrack.persistentTrack]);
-
   /* This is for displaying remote participants: this includes other humans, but also screen shares. */
   const { screens } = useScreenShare();
   const remoteParticipantIds = useParticipantIds({ filter: 'remote' });
+
+  /* This is for displaying our self-view. */
+  const localParticipant = useLocalParticipant();
+  const isAlone = useMemo(
+    () => remoteParticipantIds?.length > 0 || screens?.length > 0,
+    [remoteParticipantIds, screens],
+  );
 
   const renderCallScreen = () => {
     return (
       <div className={`${screens.length > 0 ? 'is-screenshare' : 'call'}`}>
         {/*Your self view*/}
         {localParticipant && (
-          <div
-            className={
-              remoteParticipantIds?.length > 0 || screens?.length > 0
-                ? 'self-view'
-                : 'self-view alone'
-            }>
-            <video autoPlay muted playsInline ref={localVideoElement} />
-            <div className="username">
-              {localParticipant?.user_name || localParticipant?.user_id} (you)
-            </div>
+          <div className={isAlone ? 'self-view alone' : 'self-view'}>
+            <Tile id={localParticipant.session_id} isLocal />
           </div>
         )}
         {/*Videos of remote participants and screen shares*/}

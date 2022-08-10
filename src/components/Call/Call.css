@@ -64,16 +64,6 @@
   position: relative;
 }
 
-.username {
-  position: absolute;
-  z-index: 2;
-  color: var(--grey);
-  background-color: var(--dark-blue);
-  bottom: 0;
-  left: 0;
-  font-size: 14px;
-  padding: 0.2em 0.5em;
-}
 /*
   When someone is sharing their screen, we want to resize the participants' videos,
   so the biggest screen in our grid is the screen share.
