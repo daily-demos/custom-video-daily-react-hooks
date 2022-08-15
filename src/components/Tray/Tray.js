@@ -31,6 +31,7 @@ export default function Tray({ leaveCall }) {
   const [showMeetingInformation, setShowMeetingInformation] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [newChatMessage, setNewChatMessage] = useState(false);
+  const [isMutingOthers, setMuteOthers] = useState(false);
 
   const localParticipant = useLocalParticipant();
   const localVideo = useVideoTrack(localParticipant?.session_id);
@@ -49,6 +50,23 @@ export default function Tray({ leaveCall }) {
         setNewChatMessage(true);
       }
     }, [showChat]),
+  );
+
+  useDailyEvent(
+    'participant-joined',
+    useCallback(
+      ({ participant: { session_id: id } }) => {
+        callObject.updateParticipant(id, {
+          setSubscribedTracks: {
+            audio: isMutingOthers ? 'staged' : true,
+            video: true,
+            screenAudio: false,
+            screenVideo: false,
+          },
+        });
+      },
+      [callObject, isMutingOthers],
+    ),
   );
 
   const toggleVideo = useCallback(() => {
@@ -70,6 +88,25 @@ export default function Tray({ leaveCall }) {
     if (newChatMessage) {
       setNewChatMessage(!newChatMessage);
     }
+  };
+
+  const toggleMuteOthers = () => {
+    const updateList = {};
+    for (const id in callObject.participants()) {
+      if (id !== 'local') {
+        updateList[id] = {
+          setSubscribedTracks: {
+            audio: !isMutingOthers ? 'staged' : true,
+            video: true,
+            screenAudio: false,
+            screenVideo: false,
+          },
+        };
+      }
+    }
+
+    callObject.updateParticipants(updateList);
+    setMuteOthers(!isMutingOthers);
   };
 
   return (
@@ -106,6 +143,9 @@ export default function Tray({ leaveCall }) {
           <button onClick={toggleChat}>
             {newChatMessage ? <ChatHighlighted /> : <ChatIcon />}
             {showChat ? 'Hide chat' : 'Show chat'}
+          </button>
+          <button onClick={toggleMuteOthers}>
+            {isMutingOthers ? 'Unmute others' : 'Mute others'}
           </button>
         </div>
         <div className="leave">
