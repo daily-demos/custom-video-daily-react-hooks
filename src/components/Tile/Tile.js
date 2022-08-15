@@ -1,10 +1,10 @@
 import './Tile.css';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useMediaTrack } from '@daily-co/daily-react-hooks';
 import Username from '../Username/Username';
 import TileVideo from '../TileVideo/TileVideo';
 
-export default function Tile({ id, isScreenShare, isLocal }) {
+export default function Tile({ id, isScreenShare, isLocal, isAlone }) {
   const videoTrack = useMediaTrack(id, isScreenShare ? 'screenVideo' : 'video');
   const audioTrack = useMediaTrack(id, isScreenShare ? 'screenAudio' : 'audio');
 
@@ -26,8 +26,17 @@ export default function Tile({ id, isScreenShare, isLocal }) {
     }
   }, [audioTrack]);
 
+  let containerCssClasses = isScreenShare ? 'tile-screenshare' : 'tile-video';
+
+  if (isLocal) {
+    containerCssClasses += ' self-view';
+    if (isAlone) {
+      containerCssClasses += ' alone';
+    }
+  }
+
   return (
-    <div className={isScreenShare ? 'tile-screenshare' : 'tile-video'}>
+    <div className={containerCssClasses}>
       {videoTrack && <TileVideo videoElement={videoElement} />}
       {audioTrack && <audio autoPlay playsInline ref={audioElement} />}
       <Username id={id} isLocal={isLocal} />

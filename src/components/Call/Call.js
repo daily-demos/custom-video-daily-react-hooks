@@ -38,11 +38,7 @@ export default function Call() {
     return (
       <div className={`${screens.length > 0 ? 'is-screenshare' : 'call'}`}>
         {/*Your self view*/}
-        {localParticipant && (
-          <div className={isAlone ? 'self-view alone' : 'self-view'}>
-            <Tile id={localParticipant.session_id} isLocal />
-          </div>
-        )}
+        {localParticipant && <Tile id={localParticipant.session_id} isLocal isAlone={isAlone} />}
         {/*Videos of remote participants and screen shares*/}
         {remoteParticipantIds?.length > 0 || screens?.length > 0 ? (
           <>

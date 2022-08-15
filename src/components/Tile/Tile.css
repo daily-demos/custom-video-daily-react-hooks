@@ -11,10 +11,36 @@
   }
 }
 
-/* Resize remote participants when a screen is being shared */
-.is-screenshare .tile-video {
-  width: 240px;
-  height: 135px;
+.self-view {
+  width: 480px;
+  height: 270px;
+  position: relative;
+}
+
+@media only screen and (max-width: 600px) {
+  .self-view {
+    width: 240px;
+    height: 135px;
+  }
+}
+
+/* Hard-code the self-view size if there's no one else in the call, just to make it align with the info-box */
+.self-view.alone {
+  width: 480px;
+  height: 270px;
+}
+
+@media only screen and (max-width: 600px) {
+  .self-view.alone {
+    width: 240px;
+    height: 135px;
+  }
+}
+
+.self-view video {
+  /* Mirror the self-view: it's weird not seeing yourself mirrored! */
+  transform: rotate3d(0, 1, 0, 180deg);
+  position: relative;
 }
 
 /* Put screen share front and center in our grid when there is one active */
