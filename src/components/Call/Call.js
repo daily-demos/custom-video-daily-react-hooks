@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import {
   useParticipantIds,
-  useVideoTrack,
   useScreenShare,
   useLocalParticipant,
   useDailyEvent,
@@ -10,8 +9,6 @@ import {
 import './Call.css';
 import Tile from '../Tile/Tile';
 import UserMediaError from '../UserMediaError/UserMediaError';
-import Username from '../Username/Username';
-import TileVideo from '../TileVideo/TileVideo';
 
 export default function Call() {
   /* If a participant runs into a getUserMedia() error, we need to warn them. */
