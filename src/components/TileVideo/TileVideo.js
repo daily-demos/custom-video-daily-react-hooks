@@ -7,9 +7,9 @@ const TileVideo = memo(function ({ id, isScreenShare }) {
   const videoElement = useRef(null);
 
   useEffect(() => {
-    /*  The track is ready to be played. We can show video of the remote participant in the UI.*/
     const video = videoElement.current;
     if (!video || !videoTrack?.persistentTrack) return;
+    /*  The track is ready to be played. We can show video of the participant in the UI.*/
     video.srcObject = new MediaStream([videoTrack?.persistentTrack]);
   }, [videoTrack?.persistentTrack]);
 
