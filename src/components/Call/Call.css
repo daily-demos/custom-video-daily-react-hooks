@@ -32,53 +32,17 @@
   grid-row-gap: 15px;
 }
 
-.self-view {
-  width: 480px;
-  height: 270px;
-  position: relative;
-}
-
-@media only screen and (max-width: 600px) {
-  .self-view {
-    width: 240px;
-    height: 135px;
-  }
-}
-
-/* Hard-code the self-view size if there's no one else in the call, just to make it align with the info-box */
-.self-view.alone {
-  width: 480px;
-  height: 270px;
-}
-
-@media only screen and (max-width: 600px) {
-  .self-view.alone {
-    width: 240px;
-    height: 135px;
-  }
-}
-
-.self-view video {
-  /* Mirror the self-view: it's weird not seeing yourself mirrored! */
-  transform: rotate3d(0, 1, 0, 180deg);
-  position: relative;
-}
-
-.username {
-  position: absolute;
-  z-index: 2;
-  color: var(--grey);
-  background-color: var(--dark-blue);
-  bottom: 0;
-  left: 0;
-  font-size: 14px;
-  padding: 0.2em 0.5em;
-}
 /*
   When someone is sharing their screen, we want to resize the participants' videos,
   so the biggest screen in our grid is the screen share.
  */
 .is-screenshare .self-view {
+  width: 240px;
+  height: 135px;
+}
+
+/* Resize remote participants when a screen is being shared */
+.is-screenshare .tile-video {
   width: 240px;
   height: 135px;
 }
