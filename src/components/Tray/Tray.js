@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 import {
   useDaily,
   useScreenShare,
-  useLocalParticipant,
   useVideoTrack,
   useAudioTrack,
   useDailyEvent,
+  useLocalSessionId,
 } from '@daily-co/daily-react-hooks';
 
 import MeetingInformation from '../MeetingInformation/MeetingInformation';
@@ -30,17 +30,20 @@ import { useHandRaising } from '../../hooks/useHandRaising';
 export default function Tray({ leaveCall }) {
   const callObject = useDaily();
   const { isSharingScreen, startScreenShare, stopScreenShare } = useScreenShare();
-  const { toggleHandRaising, isHandRaised } = useHandRaising();
+  const { handRaisedParticipants, raiseHand, lowerHand } = useHandRaising();
 
   const [showMeetingInformation, setShowMeetingInformation] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [newChatMessage, setNewChatMessage] = useState(false);
 
-  const localParticipant = useLocalParticipant();
-  const localVideo = useVideoTrack(localParticipant?.session_id);
-  const localAudio = useAudioTrack(localParticipant?.session_id);
+  const localSessionId = useLocalSessionId();
+
+  const localVideo = useVideoTrack(localSessionId);
+  const localAudio = useAudioTrack(localSessionId);
   const mutedVideo = localVideo.isOff;
   const mutedAudio = localAudio.isOff;
+
+  const localParticipantHasHandRaised = handRaisedParticipants?.includes(localSessionId);
 
   /* When a remote participant sends a message in the chat, we want to display a differently colored
    * chat icon in the Tray as a notification. By listening for the `"app-message"` event we'll know
@@ -76,6 +79,9 @@ export default function Tray({ leaveCall }) {
     }
   };
 
+  const toggleHandRaising = () => {
+    localParticipantHasHandRaised ? lowerHand() : raiseHand();
+  };
 
   return (
     <div className="tray">
@@ -113,8 +119,15 @@ export default function Tray({ leaveCall }) {
             {showChat ? 'Hide chat' : 'Show chat'}
           </button>
           <button onClick={toggleHandRaising}>
-            {isHandRaised ? <LowerHand /> : <RaiseHand />}
-            {isHandRaised ? 'Lower hand' : 'Raise hand'}
+            {localParticipantHasHandRaised ? (
+              <>
+                <LowerHand /> Lower hand
+              </>
+            ) : (
+              <>
+                <RaiseHand /> Raise hand
+              </>
+            )}
           </button>
         </div>
         <div className="leave">

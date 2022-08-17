@@ -48,16 +48,3 @@
   grid-column: 1 / -1;
   grid-row: 1;
 }
-
-.hand-raised {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: var(--turquoise);
-  border-radius: 4px;
-  margin: .5rem;
-  display: flex;
-  justify-content: center;
-  padding: 8px;
-}
-

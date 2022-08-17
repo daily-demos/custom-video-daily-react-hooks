@@ -1,0 +1,21 @@
+.has-hand-raised {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--turquoise);
+  border-radius: 4px;
+  margin: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+}
+
+.local {
+  background: var(--white);
+}
+
+.queue-number {
+  font-variant-numeric: tabular-nums;
+}
