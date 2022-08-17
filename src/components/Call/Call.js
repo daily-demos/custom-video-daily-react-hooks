@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import {
   useParticipantIds,
-  useVideoTrack,
   useScreenShare,
   useLocalParticipant,
   useDailyEvent,
@@ -28,14 +27,18 @@ export default function Call() {
   const { screens } = useScreenShare();
   const remoteParticipantIds = useParticipantIds({ filter: 'remote' });
 
+  /* This is for displaying our self-view. */
+  const localParticipant = useLocalParticipant();
+  const isAlone = useMemo(
+    () => remoteParticipantIds?.length < 1 || screens?.length < 1,
+    [remoteParticipantIds, screens],
+  );
+
   const renderCallScreen = () => {
     return (
       <div className={`${screens.length > 0 ? 'is-screenshare' : 'call'}`}>
         {/*Your self view*/}
-        <Tile
-          isLocalParticipant
-          multipleParticipants={remoteParticipantIds?.length > 0 || screens?.length > 0}
-        />
+        {localParticipant && <Tile id={localParticipant.session_id} isLocal isAlone={isAlone} />}
         {/*Videos of remote participants and screen shares*/}
         {remoteParticipantIds?.length > 0 || screens?.length > 0 ? (
           <>
