@@ -1,6 +1,7 @@
-import { useCallback, useState, useEffect } from 'react';
-import { useDailyEvent, useLocalParticipant, useRoom } from '@daily-co/daily-react-hooks';
+import { useState, useEffect } from 'react';
+import { useLocalParticipant, useRoom } from '@daily-co/daily-react-hooks';
 import './Chat.css';
+import api from '../../api';
 
 export default function Chat({ showChat }) {
   const localParticipant = useLocalParticipant();
@@ -8,43 +9,52 @@ export default function Chat({ showChat }) {
 
   const [loaded, setLoaded] = useState(false);
 
-  const launchCometChat = useCallback(
-    () =>
-      window.CometChatWidget.launch({
-        widgetID: process.env.REACT_APP_COMET_CHAT_WIDGET_ID,
-        target: '#cometchat',
-        roundedCorners: 'false',
-        height: '100%',
-        width: '100%',
-        defaultID: roomName, //default UID (user) or GUID (group) to show,
-        defaultType: 'group', //user or group
-      }),
-    [roomName],
-  );
+  const launchCometChat = (room) => {
+    window.CometChatWidget.launch({
+      widgetID: process.env.REACT_APP_COMET_CHAT_WIDGET_ID,
+      target: '#cometchat',
+      roundedCorners: 'false',
+      height: '100%',
+      width: '100%',
+      defaultID: room, //default UID (user) or GUID (group) to show,
+      defaultType: 'group', //user or group
+    });
+    setLoaded(true);
+  };
+
   const createCometChatGroup = () => {
     const GUID = roomName;
-    const GROUP_NAME = roomName;
-    const GROUP_TYPE = 'public';
-    const group = new window.CometChatWidget.CometChat.Group(GUID, GROUP_NAME, GROUP_TYPE);
+    // make GET request to CometChat's REST API to see if group exists
+    api.getCometChatGroup(GUID).then((group) => {
+      if (group?.data) {
+        // group already exists in CometChat so we don't have to create it
+        launchCometChat(group.data.guid);
+        return;
+      }
 
-    // CREATE GROUP WITH ROOM INFO
-    window.CometChatWidget.createOrUpdateGroup(group)
-      .then((group) => {
-        // Proceed with launching your Chat Widget
-        launchCometChat();
-      })
-      .catch((e) => {
-        // If the group already exists, launch chat without trying to create
-        // the group first
-        if (e.code === 'ERR_GROUP_NOT_JOINED') {
-          launchCometChat();
-        }
-      });
+      // Otherwise, create new CometChat group for this Daily room
+      const GROUP_NAME = roomName;
+      const GROUP_TYPE = 'public';
+      const newGroup = new window.CometChatWidget.CometChat.Group(GUID, GROUP_NAME, GROUP_TYPE);
+
+      // CREATE GROUP WITH ROOM INFO
+      window.CometChatWidget.createOrUpdateGroup(newGroup)
+        .then(() => {
+          // Proceed with launching your Chat Widget
+          launchCometChat(GROUP_NAME);
+        })
+        .catch((e) => {
+          // handle error
+          console.error(e);
+        });
+    });
   };
 
   // INITIATE COMETCHAT WIDGET!
   useEffect(() => {
+    // don't initiate chat if it's already there
     if (loaded) return;
+
     window.CometChatWidget.init({
       appID: process.env.REACT_APP_COMET_CHAT_APP_ID,
       appRegion: process.env.REACT_APP_COMET_CHAT_APP_REGION,
@@ -62,13 +72,11 @@ export default function Chat({ showChat }) {
             uid: UID,
           }).then(() => {
             createCometChatGroup();
-
-            setLoaded(true);
           });
         });
       },
       (error) => {
-        console.log('Initialization failed with error:', error);
+        console.error('Initialization failed with error:', error);
         //Check the reason for error and take appropriate action.
       },
     );

@@ -51,6 +51,21 @@ async function deleteCometChatUser(uid) {
 
   return await response.json();
 }
+async function getCometChatGroup(guid) {
+  const appId = process.env.REACT_APP_COMET_CHAT_APP_ID;
+  const region = process.env.REACT_APP_COMET_CHAT_APP_REGION;
+  const key = process.env.REACT_APP_COMET_CHAT_API_KEY;
+
+  const response = await fetch(`https://${appId}.api-${region}.cometchat.io/v3/groups/${guid}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      apiKey: key,
+    },
+  });
+
+  return await response.json();
+}
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { createRoom, deleteCometChatUser };
+export default { createRoom, deleteCometChatUser, getCometChatGroup };
