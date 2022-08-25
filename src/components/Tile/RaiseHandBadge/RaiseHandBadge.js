@@ -2,7 +2,6 @@ import { RaiseHand } from '../../Tray/Icons';
 import { useHandRaisedQueue } from '../../../hooks/useHandRaising';
 import './RaiseHandBadge.css';
 
-
 export default function RaiseHandBadge({ id, isLocal }) {
   const handRaisedQueueNumber = useHandRaisedQueue(id);
 
