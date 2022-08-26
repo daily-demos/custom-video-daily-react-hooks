@@ -18,7 +18,8 @@ export default function UserMediaError() {
           <a
             href="https://docs.daily.co/guides/how-daily-works/handling-device-permissions"
             target="_blank"
-            rel="noreferrer noopenner">
+            rel="noreferrer noopenner"
+          >
             Get help
           </a>
         </p>

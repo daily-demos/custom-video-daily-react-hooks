@@ -161,11 +161,10 @@ export default function App() {
    * Show the call UI if we're either joining, already joined, or have encountered
    * an error that is _not_ a room API error.
    */
-  const showCall =
-    !apiError && [STATE_JOINING, STATE_JOINED, STATE_ERROR].includes(appState);
+  const showCall = !apiError && [STATE_JOINING, STATE_JOINED, STATE_ERROR].includes(appState);
 
   /* When there's no problems creating the room and startHairCheck() has been successfully called,
-  * we can show the hair check UI.*/
+   * we can show the hair check UI.*/
   const showHairCheck = !apiError && appState === STATE_HAIRCHECK;
 
   const renderApp = () => {
@@ -175,8 +174,8 @@ export default function App() {
         <div className="api-error">
           <h1>Error</h1>
           <p>
-            Room could not be created. Please check your local configuration in
-            `api.js`. For more information, check out the{' '}
+            Room could not be created. Please check your local configuration in `api.js`. For more
+            information, check out the{' '}
             <a href="https://github.com/daily-demos/call-object-react-daily-hooks/blob/main/README.md">
               readme
             </a>{' '}
@@ -206,9 +205,7 @@ export default function App() {
     }
 
     // The default view is the HomeScreen, from where we start the demo.
-    return (
-      <HomeScreen createCall={createCall} startHairCheck={startHairCheck} />
-    );
+    return <HomeScreen createCall={createCall} startHairCheck={startHairCheck} />;
   };
 
   return (

@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  useDaily,
-  useNetwork,
-  useParticipantIds,
-  useRoom,
-} from '@daily-co/daily-react-hooks';
+import { useDaily, useNetwork, useParticipantIds, useRoom } from '@daily-co/daily-react-hooks';
 import './MeetingInformation.css';
 
 export default function MeetingInformation() {

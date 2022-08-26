@@ -63,7 +63,9 @@ export default function Chat({ showChat, toggleChat }) {
 
   return showChat ? (
     <aside className="chat">
-      <button onClick={toggleChat} className="close-chat">Close chat</button>
+      <button onClick={toggleChat} className="close-chat">
+        Close chat
+      </button>
       <ul className="chat-messages">
         {messages?.map((message, index) => (
           <li key={`message-${index}`} className="chat-message">
