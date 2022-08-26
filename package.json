@@ -5,7 +5,6 @@
   "dependencies": {
     "@daily-co/daily-js": "^0.30.0",
     "@daily-co/daily-react-hooks": "0.4.0",
-    "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -14,7 +13,8 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.5.0",
-    "prettier": "^2.6.2"
+    "prettier": "^2.6.2",
+    "husky": "^8.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
