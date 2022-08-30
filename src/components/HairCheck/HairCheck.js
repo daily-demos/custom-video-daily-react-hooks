@@ -61,10 +61,10 @@ export default function HairCheck({ joinCall, cancelCall }) {
       ) : (
         <form className="hair-check" onSubmit={join}>
           <h1>Setup your hardware</h1>
-          {/*Video preview*/}
+          {/* Video preview */}
           {videoTrack?.persistentTrack && <video autoPlay muted playsInline ref={videoElement} />}
 
-          {/*Username*/}
+          {/* Username */}
           <div>
             <label htmlFor="username">Your name:</label>
             <input
@@ -76,7 +76,7 @@ export default function HairCheck({ joinCall, cancelCall }) {
             />
           </div>
 
-          {/*Microphone select*/}
+          {/* Microphone select */}
           <div>
             <label htmlFor="micOptions">Microphone:</label>
             <select name="micOptions" id="micSelect" onChange={updateMicrophone}>
@@ -88,7 +88,7 @@ export default function HairCheck({ joinCall, cancelCall }) {
             </select>
           </div>
 
-          {/*Speakers select*/}
+          {/* Speakers select */}
           <div>
             <label htmlFor="speakersOptions">Speakers:</label>
             <select name="speakersOptions" id="speakersSelect" onChange={updateSpeakers}>
@@ -100,7 +100,7 @@ export default function HairCheck({ joinCall, cancelCall }) {
             </select>
           </div>
 
-          {/*Camera select*/}
+          {/* Camera select */}
           <div>
             <label htmlFor="cameraOptions">Camera:</label>
             <select name="cameraOptions" id="cameraSelect" onChange={updateCamera}>
