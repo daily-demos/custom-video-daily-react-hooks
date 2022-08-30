@@ -12,7 +12,7 @@
     "recoil": "^0.7.4"
   },
   "devDependencies": {
-    "eslint": "^8.23.0",
+    "eslint": "8.22.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
@@ -28,9 +28,8 @@
     "build": "react-scripts build",
     "netlify-build": "sed -i.bak s/REACT_APP_DAILY_API_KEY_PLACEHOLDER/${REACT_APP_DAILY_API_KEY}/g netlify.toml && npm run build",
     "eject": "react-scripts eject",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "lint": "eslint 'src/**/*.{js,jsx}'",
+    "lint:fix": "eslint 'src/**/*.{js,jsx}' --fix"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [

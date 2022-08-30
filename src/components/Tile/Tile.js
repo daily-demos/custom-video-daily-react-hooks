@@ -27,7 +27,7 @@ export default function Tile({ id, isScreenShare, isLocal, isAlone }) {
 
   return (
     <div className={containerCssClasses}>
-      {<TileVideo id={id} isScreenShare={isScreenShare} />}
+      <TileVideo id={id} isScreenShare={isScreenShare} />
       {audioTrack && <audio autoPlay playsInline ref={audioElement} />}
       <Username id={id} isLocal={isLocal} />
     </div>

@@ -75,13 +75,13 @@ export default function Tray({ leaveCall }) {
   return (
     <div className="tray">
       {showMeetingInformation && <MeetingInformation />}
-      {/*  The chat messages 'live' in the <Chat/> component's state. We can't just remove the component*/}
-      {/*  from the DOM when hiding the chat, because that would cause us to lose that state. So we're*/}
-      {/*  choosing a slightly different approach of toggling the chat: always render the component, but only*/}
-      {/*  render its HTML when showChat is set to true.*/}
+      {/*  The chat messages 'live' in the <Chat/> component's state. We can't just remove the component */}
+      {/*  from the DOM when hiding the chat, because that would cause us to lose that state. So we're */}
+      {/*  choosing a slightly different approach of toggling the chat: always render the component, but only */}
+      {/*  render its HTML when showChat is set to true. */}
 
-      {/*   We're also passing down the toggleChat() function to the component, so we can open and close the chat*/}
-      {/*   from the chat UI and not just the Tray.*/}
+      {/*   We're also passing down the toggleChat() function to the component, so we can open and close the chat */}
+      {/*   from the chat UI and not just the Tray. */}
       <Chat showChat={showChat} toggleChat={toggleChat} />
       <div className="tray-buttons-container">
         <div className="controls">
