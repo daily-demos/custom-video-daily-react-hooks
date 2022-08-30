@@ -12,9 +12,16 @@
     "recoil": "^0.7.4"
   },
   "devDependencies": {
+    "eslint": "^8.23.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
-    "prettier": "^2.6.2",
-    "husky": "^8.0.1"
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1"
   },
   "scripts": {
     "start": "react-scripts start",
