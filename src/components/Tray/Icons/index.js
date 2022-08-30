@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const CameraOn = () => {
+export function CameraOn() {
   return (
     <svg
       aria-hidden="true"
@@ -17,9 +17,9 @@ export const CameraOn = () => {
       />
     </svg>
   );
-};
+}
 
-export const CameraOff = () => {
+export function CameraOff() {
   return (
     <svg
       aria-hidden="true"
@@ -42,9 +42,9 @@ export const CameraOff = () => {
       />
     </svg>
   );
-};
+}
 
-export const MicrophoneOn = () => {
+export function MicrophoneOn() {
   return (
     <svg
       aria-hidden="true"
@@ -61,9 +61,9 @@ export const MicrophoneOn = () => {
       />
     </svg>
   );
-};
+}
 
-export const MicrophoneOff = () => {
+export function MicrophoneOff() {
   return (
     <svg
       aria-hidden="true"
@@ -86,9 +86,9 @@ export const MicrophoneOff = () => {
       />
     </svg>
   );
-};
+}
 
-export const Screenshare = () => {
+export function Screenshare() {
   return (
     <svg
       aria-hidden="true"
@@ -105,9 +105,9 @@ export const Screenshare = () => {
       />
     </svg>
   );
-};
+}
 
-export const Leave = () => {
+export function Leave() {
   return (
     <svg
       aria-hidden="true"
@@ -126,9 +126,9 @@ export const Leave = () => {
       />
     </svg>
   );
-};
+}
 
-export const Info = () => {
+export function Info() {
   return (
     <svg
       aria-hidden="true"
@@ -157,9 +157,9 @@ export const Info = () => {
       />
     </svg>
   );
-};
+}
 
-export const ChatIcon = () => {
+export function ChatIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -170,9 +170,9 @@ export const ChatIcon = () => {
       />
     </svg>
   );
-};
+}
 
-export const ChatHighlighted = () => {
+export function ChatHighlighted() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -183,9 +183,9 @@ export const ChatHighlighted = () => {
       />
     </svg>
   );
-};
+}
 
-export const Arrow = () => {
+export function Arrow() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -194,4 +194,4 @@ export const Arrow = () => {
       />
     </svg>
   );
-};
+}

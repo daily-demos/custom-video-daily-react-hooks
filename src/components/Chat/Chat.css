@@ -60,7 +60,7 @@
   background: transparent;
   border: 0;
   flex-grow: 1;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .chat-submit-button {
@@ -70,7 +70,7 @@
 .close-chat {
   background: var(--turquoise);
   border: 1px solid var(--grey);
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   margin: 1rem;
   align-self: end;
   font-weight: normal;
