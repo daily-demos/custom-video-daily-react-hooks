@@ -20,7 +20,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.1",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "husky": "^8.0.1",
     "prettier": "^2.7.1"
   },
   "scripts": {
@@ -30,22 +29,6 @@
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.{js,jsx}'",
     "lint:fix": "eslint 'src/**/*.{js,jsx}' --fix"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "prettier"
-    ]
   },
   "browserslist": {
     "production": [
