@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDaily, useParticipantIds } from '@daily-co/daily-react-hooks';
 
-export const HAND_RAISED_USER_DATA_KEY = 'hr'; // keep this as small as possible: the max payload size is 4K characters
+export const HAND_RAISED_USER_DATA_KEY = 'hr'; // Keep this as small as possible: the max payload size is 4K characters
 
 export const useHandRaisedQueue = (id) => {
   const idsWithRaisedHands = useParticipantIds({
@@ -16,7 +16,7 @@ export const useHandRaisedQueue = (id) => {
     }, []),
   });
   if (idsWithRaisedHands.includes(id))
-    // arrays start with 0, but our queue numbers should start at 1
+    // Arrays start with 0, but our queue numbers should start at 1
     return idsWithRaisedHands.indexOf(id) + 1;
   return undefined;
 };
