@@ -12,8 +12,8 @@ export default function Chat({ showChat, toggleChat }) {
   const sendAppMessage = useAppMessage({
     onAppMessage: useCallback(
       (ev) =>
-        setMessages((messages) => [
-          ...messages,
+        setMessages((existingMessages) => [
+          ...existingMessages,
           {
             msg: ev.data.msg,
             name: ev.data.name,
@@ -63,7 +63,7 @@ export default function Chat({ showChat, toggleChat }) {
 
   return showChat ? (
     <aside className="chat">
-      <button onClick={toggleChat} className="close-chat">
+      <button onClick={toggleChat} className="close-chat" type="button">
         Close chat
       </button>
       <ul className="chat-messages">
