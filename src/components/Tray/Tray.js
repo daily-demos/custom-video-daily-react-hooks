@@ -96,25 +96,25 @@ export default function Tray({ leaveCall }) {
       <Chat showChat={showChat} toggleChat={toggleChat} />
       <div className="tray-buttons-container">
         <div className="controls">
-          <button onClick={toggleVideo}>
+          <button onClick={toggleVideo} type="button">
             {mutedVideo ? <CameraOff /> : <CameraOn />}
             {mutedVideo ? 'Turn camera on' : 'Turn camera off'}
           </button>
-          <button onClick={toggleAudio}>
+          <button onClick={toggleAudio} type="button">
             {mutedAudio ? <MicrophoneOff /> : <MicrophoneOn />}
             {mutedAudio ? 'Unmute mic' : 'Mute mic'}
           </button>
         </div>
         <div className="actions">
-          <button onClick={toggleScreenShare}>
+          <button onClick={toggleScreenShare} type="button">
             <Screenshare />
             {isSharingScreen ? 'Stop sharing screen' : 'Share screen'}
           </button>
-          <button onClick={toggleMeetingInformation}>
+          <button onClick={toggleMeetingInformation} type="button">
             <Info />
             {showMeetingInformation ? 'Hide info' : 'Show info'}
           </button>
-          <button onClick={toggleChat}>
+          <button onClick={toggleChat} type="button">
             {newChatMessage ? <ChatHighlighted /> : <ChatIcon />}
             {showChat ? 'Hide chat' : 'Show chat'}
           </button>
@@ -131,7 +131,7 @@ export default function Tray({ leaveCall }) {
           </button>
         </div>
         <div className="leave">
-          <button onClick={leaveCall}>
+          <button onClick={leaveCall} type="button">
             <Leave /> Leave call
           </button>
         </div>

@@ -14,9 +14,10 @@ export default function Tile({ id, isScreenShare, isLocal, isAlone }) {
 
   useEffect(() => {
     if (audioTrack?.state === 'playable') {
-      audioElement?.current &&
+      if (audioElement?.current) {
         (audioElement.current.srcObject =
           audioTrack && new MediaStream([audioTrack.persistentTrack]));
+      }
     }
   }, [audioTrack]);
   let containerCssClasses = isScreenShare ? 'tile-screenshare' : 'tile-video';

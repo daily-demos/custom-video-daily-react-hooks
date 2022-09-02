@@ -18,7 +18,7 @@ export default function Call() {
    * of all events: https://docs.daily.co/reference/daily-js/events */
   useDailyEvent(
     'camera-error',
-    useCallback((ev) => {
+    useCallback(() => {
       setGetUserMediaError(true);
     }, []),
   );
@@ -59,5 +59,5 @@ export default function Call() {
     </div>
   );
 
-  return <>{getUserMediaError ? <UserMediaError /> : renderCallScreen()}</>;
+  return getUserMediaError ? <UserMediaError /> : renderCallScreen();
 }

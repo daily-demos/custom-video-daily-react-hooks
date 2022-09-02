@@ -37,9 +37,10 @@ export default function HairCheck({ joinCall, cancelCall }) {
 
   useEffect(() => {
     if (!videoTrack.persistentTrack) return;
-    videoElement?.current &&
-      (videoElement.current.srcObject =
-        videoTrack.persistentTrack && new MediaStream([videoTrack?.persistentTrack]));
+    if (videoElement?.current) {
+      videoElement.current.srcObject =
+        videoTrack.persistentTrack && new MediaStream([videoTrack?.persistentTrack]);
+    }
   }, [videoTrack.persistentTrack]);
 
   const updateMicrophone = (e) => {
@@ -54,72 +55,68 @@ export default function HairCheck({ joinCall, cancelCall }) {
     setCamera(e.target.value);
   };
 
-  return (
-    <>
-      {getUserMediaError ? (
-        <UserMediaError />
-      ) : (
-        <form className="hair-check" onSubmit={join}>
-          <h1>Setup your hardware</h1>
-          {/* Video preview */}
-          {videoTrack?.persistentTrack && <video autoPlay muted playsInline ref={videoElement} />}
+  return getUserMediaError ? (
+    <UserMediaError />
+  ) : (
+    <form className="hair-check" onSubmit={join}>
+      <h1>Setup your hardware</h1>
+      {/* Video preview */}
+      {videoTrack?.persistentTrack && <video autoPlay muted playsInline ref={videoElement} />}
 
-          {/* Username */}
-          <div>
-            <label htmlFor="username">Your name:</label>
-            <input
-              name="username"
-              type="text"
-              placeholder="Enter username"
-              onChange={(e) => onChange(e)}
-              value={localParticipant?.user_name || ' '}
-            />
-          </div>
+      {/* Username */}
+      <div>
+        <label htmlFor="username">Your name:</label>
+        <input
+          name="username"
+          type="text"
+          placeholder="Enter username"
+          onChange={(e) => onChange(e)}
+          value={localParticipant?.user_name || ' '}
+        />
+      </div>
 
-          {/* Microphone select */}
-          <div>
-            <label htmlFor="micOptions">Microphone:</label>
-            <select name="micOptions" id="micSelect" onChange={updateMicrophone}>
-              {microphones?.map((mic) => (
-                <option key={`mic-${mic.device.deviceId}`} value={mic.device.deviceId}>
-                  {mic.device.label}
-                </option>
-              ))}
-            </select>
-          </div>
+      {/* Microphone select */}
+      <div>
+        <label htmlFor="micOptions">Microphone:</label>
+        <select name="micOptions" id="micSelect" onChange={updateMicrophone}>
+          {microphones?.map((mic) => (
+            <option key={`mic-${mic.device.deviceId}`} value={mic.device.deviceId}>
+              {mic.device.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
-          {/* Speakers select */}
-          <div>
-            <label htmlFor="speakersOptions">Speakers:</label>
-            <select name="speakersOptions" id="speakersSelect" onChange={updateSpeakers}>
-              {speakers?.map((speaker) => (
-                <option key={`speaker-${speaker.device.deviceId}`} value={speaker.device.deviceId}>
-                  {speaker.device.label}
-                </option>
-              ))}
-            </select>
-          </div>
+      {/* Speakers select */}
+      <div>
+        <label htmlFor="speakersOptions">Speakers:</label>
+        <select name="speakersOptions" id="speakersSelect" onChange={updateSpeakers}>
+          {speakers?.map((speaker) => (
+            <option key={`speaker-${speaker.device.deviceId}`} value={speaker.device.deviceId}>
+              {speaker.device.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
-          {/* Camera select */}
-          <div>
-            <label htmlFor="cameraOptions">Camera:</label>
-            <select name="cameraOptions" id="cameraSelect" onChange={updateCamera}>
-              {cameras?.map((camera) => (
-                <option key={`cam-${camera.device.deviceId}`} value={camera.device.deviceId}>
-                  {camera.device.label}
-                </option>
-              ))}
-            </select>
-          </div>
+      {/* Camera select */}
+      <div>
+        <label htmlFor="cameraOptions">Camera:</label>
+        <select name="cameraOptions" id="cameraSelect" onChange={updateCamera}>
+          {cameras?.map((camera) => (
+            <option key={`cam-${camera.device.deviceId}`} value={camera.device.deviceId}>
+              {camera.device.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
-          <button onClick={join} type="submit">
-            Join call
-          </button>
-          <button onClick={cancelCall} className="cancel-call">
-            Back to start
-          </button>
-        </form>
-      )}
-    </>
+      <button onClick={join} type="submit">
+        Join call
+      </button>
+      <button onClick={cancelCall} className="cancel-call" type="button">
+        Back to start
+      </button>
+    </form>
   );
 }
