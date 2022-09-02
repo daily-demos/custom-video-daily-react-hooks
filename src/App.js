@@ -91,7 +91,9 @@ export default function App() {
    */
   useEffect(() => {
     const url = roomUrlFromPageUrl();
-    url && startHairCheck(url);
+    if (url) {
+      startHairCheck(url);
+    }
   }, [startHairCheck]);
 
   /**
@@ -139,21 +141,17 @@ export default function App() {
     // Use initial state
     handleNewMeetingState();
 
-    // Listen for changes in state
-    for (const event of events) {
-      /*
-        We can't use the useDailyEvent hook (https://docs.daily.co/reference/daily-react-hooks/use-daily-event) for this
-        because right now, we're not inside a <DailyProvider/> (https://docs.daily.co/reference/daily-react-hooks/daily-provider)
-        context yet. We can't access the call object via daily-react-hooks just yet, but we will later in Call.js and HairCheck.js!
-      */
-      callObject.on(event, handleNewMeetingState);
-    }
+    /*
+    * Listen for changes in state.
+    * We can't use the useDailyEvent hook (https://docs.daily.co/reference/daily-react-hooks/use-daily-event) for this
+    * because right now, we're not inside a <DailyProvider/> (https://docs.daily.co/reference/daily-react-hooks/daily-provider)
+    * context yet. We can't access the call object via daily-react-hooks just yet, but we will later in Call.js and HairCheck.js!
+    */
+    events.forEach((event) => callObject.on(event, handleNewMeetingState));
 
     // Stop listening for changes in state
-    return function cleanup() {
-      for (const event of events) {
-        callObject.off(event, handleNewMeetingState);
-      }
+    return () => {
+      events.forEach((event) => callObject.off(event, handleNewMeetingState));
     };
   }, [callObject]);
 

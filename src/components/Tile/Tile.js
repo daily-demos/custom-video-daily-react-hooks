@@ -6,14 +6,14 @@ import TileVideo from '../TileVideo/TileVideo';
 
 export default function Tile({ id, isScreenShare, isLocal, isAlone }) {
   const audioTrack = useMediaTrack(id, isScreenShare ? 'screenAudio' : 'audio');
-
   const audioElement = useRef(null);
 
   useEffect(() => {
     if (audioTrack?.state === 'playable') {
-      audioElement?.current &&
+      if (audioElement?.current) {
         (audioElement.current.srcObject =
           audioTrack && new MediaStream([audioTrack.persistentTrack]));
+      }
     }
   }, [audioTrack]);
   let containerCssClasses = isScreenShare ? 'tile-screenshare' : 'tile-video';
