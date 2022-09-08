@@ -10,27 +10,27 @@ async function createRoom() {
     },
   };
 
-  /*
-    This endpoint is using the proxy as outlined in netlify.toml.
-    Comment this out if you want to use the local option below.
-  */
-  const response = await fetch(`${window.location.origin}/api/rooms`, {
-    method: 'POST',
-    body: JSON.stringify(options),
-  });
+  const isLocal = process.env.REACT_APP_ROOM_ENDPOINT && process.env.REACT_APP_ROOM_ENDPOINT === 'local';
+  const endpoint = isLocal
+    ? 'https://api.daily.co/v1/rooms/'
+    : `${window.location.origin}/api/rooms`;
 
   /*
-    Uncomment the request below to test the "create room" functionality locally.
-    Don't forget to comment out the request above, too!
+    No need to send the headers with the request when using the proxy option:
+    netlify.toml takes care of that for us.
   */
-  // const response = await fetch(`https://api.daily.co/v1/rooms/`, {
-  //   method: 'POST',
-  //   body: JSON.stringify(options),
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     Authorization: `Bearer ${process.env.REACT_APP_DAILY_API_KEY}`,
-  //   },
-  // });
+  const headers = isLocal && {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.REACT_APP_DAILY_API_KEY}`,
+    },
+  };
+
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    body: JSON.stringify(options),
+    ...headers,
+  });
 
   return response.json();
 }

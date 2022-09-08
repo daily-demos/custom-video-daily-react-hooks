@@ -61,28 +61,15 @@ To run this demo locally:
 
 ### Creating new rooms locally
 
-To create rooms new rooms via the app UI while testing locally, follow these additional steps:
+To create new rooms via the app UI while testing locally, follow these additional steps:
 
 - rename `example.env` to `.env`
 - add your Daily API key (available in the Daily [dashboard](https://dashboard.daily.co/developers)) to `.env`
+- add the value `local` to the `REACT_APP_ROOM_ENDPOINT` variable in `.env`
 
-```
-REACT_APP_DAILY_API_KEY=<-Your Daily API key here->
-```
-
-- In `api.js`, comment out the default request and uncomment the local request.
-
-```javascript
-// api.js
-// make sure this request is uncommented and the one above it is commented out
-const response = await fetch(`https://api.daily.co/v1/rooms/`, {
-  method: 'POST',
-  body: JSON.stringify(options),
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + process.env.REACT_APP_DAILY_API_KEY,
-  },
-});
+```dotenv
+REACT_APP_DAILY_API_KEY=your-daily-api-key
+REACT_APP_ROOM_ENDPOINT=local
 ```
 
 - Restart your server, i.e. re-run `npm start`
@@ -95,6 +82,6 @@ If you want access to the Daily REST API (using the proxy as specified in `netli
 
 [![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/daily-demos/custom-video-daily-react-hooks)
 
-Note: You'll need your [Daily API key](https://dashboard.daily.co/developers) handy for this step.
+Note: You'll need your [Daily API key](https://dashboard.daily.co/developers) handy for this step. 
 
 Visit the deployed domain provided by Netlify after completing this step to view the app.
