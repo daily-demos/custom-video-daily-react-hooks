@@ -80,6 +80,7 @@ export default function Tray({ leaveCall }) {
   };
 
   const toggleHandRaising = () => {
+    // eslint-disable-next-line no-unused-expressions
     localParticipantHasHandRaised ? lowerHand() : raiseHand();
   };
 
@@ -118,7 +119,7 @@ export default function Tray({ leaveCall }) {
             {newChatMessage ? <ChatHighlighted /> : <ChatIcon />}
             {showChat ? 'Hide chat' : 'Show chat'}
           </button>
-          <button onClick={toggleHandRaising}>
+          <button onClick={toggleHandRaising} type="button">
             {localParticipantHasHandRaised ? (
               <>
                 <LowerHand /> Lower hand
