@@ -172,8 +172,8 @@ export default function App() {
         <div className="api-error">
           <h1>Error</h1>
           <p>
-            Room could not be created. Please check your local configuration in `api.js`. For more
-            information, check out the{' '}
+            Room could not be created. Check if your `.env` file is set up correctly. For more
+            information, see the{' '}
             <a href="https://github.com/daily-demos/call-object-react-daily-hooks/blob/main/README.md">
               readme
             </a>{' '}
