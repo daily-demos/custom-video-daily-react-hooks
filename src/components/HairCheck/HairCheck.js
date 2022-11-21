@@ -5,7 +5,7 @@ import {
   useDevices,
   useDaily,
   useDailyEvent,
-} from '@daily-co/daily-react-hooks';
+} from '@daily-co/daily-react';
 import UserMediaError from '../UserMediaError/UserMediaError';
 
 import './HairCheck.css';
