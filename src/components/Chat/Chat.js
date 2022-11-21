@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useAppMessage, useLocalParticipant } from '@daily-co/daily-react-hooks';
+import { useAppMessage, useLocalParticipant } from '@daily-co/daily-react';
 
 import { Arrow } from '../Tray/Icons/index';
 import './Chat.css';

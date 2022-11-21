@@ -30,7 +30,7 @@ The first post in the series covers how to [build the video components](https://
 
 The second post in the series covers how to build a [prejoin UI](https://www.daily.co/blog/add-a-prejoin-ui-to-a-custom-video-app-with-the-daily-react-hooks-library-part-2/). The code relevant to this post can be found in the [v2.0](https://github.com/daily-demos/custom-video-daily-react-hooks/tree/v2.0) tag.
 
-The third post in the series covers how to build a [custom chat widget](https://www.daily.co/blog/add-chat-to-your-custom-video-app-with-daily-react-hooks-part-3/).
+The third post in the series covers how to build a [custom chat widget](https://www.daily.co/blog/add-chat-to-your-custom-video-app-with-daily-react-hooks-part-3/). The code relevant to this post can be found in the [v3.0](https://github.com/daily-demos/custom-video-daily-react-hooks/tree/v3.0) tag.
 
 All features mentioned above are available on `main`. Earlier versions exclude later features.
 
@@ -39,6 +39,7 @@ Deployed versions of the demo can be found below:
 - main: [main](https://daily-react-hooks.netlify.app/)
 - v1.0: [custom-video-daily-react-hooks-v1](https://custom-video-daily-react-hooks-v1.netlify.app)
 - v2.0: [custom-video-daily-react-hooks-v2](https://custom-video-daily-react-hooks-v2.netlify.app)
+- v3.0: [custom-video-daily-react-hooks-v3](https://custom-video-daily-react-hooks-v3.netlify.app)
 
 ---
 
@@ -82,6 +83,6 @@ If you want access to the Daily REST API (using the proxy as specified in `netli
 
 [![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/daily-demos/custom-video-daily-react-hooks)
 
-Note: You'll need your [Daily API key](https://dashboard.daily.co/developers) handy for this step. 
+Note: You'll need your [Daily API key](https://dashboard.daily.co/developers) handy for this step.
 
 Visit the deployed domain provided by Netlify after completing this step to view the app.

@@ -6,7 +6,7 @@ import {
   useVideoTrack,
   useAudioTrack,
   useDailyEvent,
-} from '@daily-co/daily-react-hooks';
+} from '@daily-co/daily-react';
 
 import MeetingInformation from '../MeetingInformation/MeetingInformation';
 import Chat from '../Chat/Chat';
