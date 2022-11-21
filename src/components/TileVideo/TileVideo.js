@@ -1,4 +1,4 @@
-import { useMediaTrack } from '@daily-co/daily-react';
+import { useMediaTrack } from '@daily-co/daily-react-hooks';
 import { memo, useEffect, useRef } from 'react';
 
 const TileVideo = memo(({ id, isScreenShare }) => {

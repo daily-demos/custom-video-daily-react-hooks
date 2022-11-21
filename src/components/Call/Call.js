@@ -4,7 +4,7 @@ import {
   useScreenShare,
   useLocalParticipant,
   useDailyEvent,
-} from '@daily-co/daily-react';
+} from '@daily-co/daily-react-hooks';
 
 import './Call.css';
 import Tile from '../Tile/Tile';

@@ -2,7 +2,7 @@ import './App.css';
 
 import React, { useEffect, useState, useCallback } from 'react';
 import DailyIframe from '@daily-co/daily-js';
-import { DailyProvider } from '@daily-co/daily-react';
+import { DailyProvider } from '@daily-co/daily-react-hooks';
 
 import api from './api';
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from './utils';
@@ -142,11 +142,11 @@ export default function App() {
     handleNewMeetingState();
 
     /*
-     * Listen for changes in state.
-     * We can't use the useDailyEvent hook (https://docs.daily.co/reference/daily-react/use-daily-event) for this
-     * because right now, we're not inside a <DailyProvider/> (https://docs.daily.co/reference/daily-react/daily-provider)
-     * context yet. We can't access the call object via daily-react just yet, but we will later in Call.js and HairCheck.js!
-     */
+    * Listen for changes in state.
+    * We can't use the useDailyEvent hook (https://docs.daily.co/reference/daily-react-hooks/use-daily-event) for this
+    * because right now, we're not inside a <DailyProvider/> (https://docs.daily.co/reference/daily-react-hooks/daily-provider)
+    * context yet. We can't access the call object via daily-react-hooks just yet, but we will later in Call.js and HairCheck.js!
+    */
     events.forEach((event) => callObject.on(event, handleNewMeetingState));
 
     // Stop listening for changes in state
