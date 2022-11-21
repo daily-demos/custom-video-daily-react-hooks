@@ -4,6 +4,7 @@ import {
   useScreenShare,
   useLocalParticipant,
   useDailyEvent,
+  DailyAudio,
 } from '@daily-co/daily-react';
 
 import './Call.css';
@@ -47,6 +48,7 @@ export default function Call() {
           {screens.map((screen) => (
             <Tile key={screen.screenId} id={screen.session_id} isScreenShare />
           ))}
+          <DailyAudio />
         </>
       ) : (
         // When there are no remote participants or screen shares

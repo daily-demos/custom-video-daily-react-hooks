@@ -5,6 +5,7 @@ import {
   useDevices,
   useDaily,
   useDailyEvent,
+  DailyVideo,
 } from '@daily-co/daily-react';
 import UserMediaError from '../UserMediaError/UserMediaError';
 
@@ -61,7 +62,7 @@ export default function HairCheck({ joinCall, cancelCall }) {
     <form className="hair-check" onSubmit={join}>
       <h1>Setup your hardware</h1>
       {/* Video preview */}
-      {videoTrack?.persistentTrack && <video autoPlay muted playsInline ref={videoElement} />}
+      {localParticipant && <DailyVideo sessionId={localParticipant.session_id} mirror />}
 
       {/* Username */}
       <div>
