@@ -37,12 +37,6 @@
   }
 }
 
-.self-view video {
-  /* Mirror the self-view: it's weird not seeing yourself mirrored! */
-  transform: rotate3d(0, 1, 0, 180deg);
-  position: relative;
-}
-
 /* Put screen share front and center in our grid when there is one active */
 .tile-screenshare {
   grid-column: 1 / -1;
