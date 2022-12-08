@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   useLocalParticipant,
-  useVideoTrack,
   useDevices,
   useDaily,
   useDailyEvent,
@@ -13,10 +12,8 @@ import './HairCheck.css';
 
 export default function HairCheck({ joinCall, cancelCall }) {
   const localParticipant = useLocalParticipant();
-  const videoTrack = useVideoTrack(localParticipant?.session_id);
   const { microphones, speakers, cameras, setMicrophone, setCamera, setSpeaker } = useDevices();
   const callObject = useDaily();
-  const videoElement = useRef();
 
   const [getUserMediaError, setGetUserMediaError] = useState(false);
 
@@ -35,14 +32,6 @@ export default function HairCheck({ joinCall, cancelCall }) {
     e.preventDefault();
     joinCall();
   };
-
-  useEffect(() => {
-    if (!videoTrack.persistentTrack) return;
-    if (videoElement?.current) {
-      videoElement.current.srcObject =
-        videoTrack.persistentTrack && new MediaStream([videoTrack?.persistentTrack]);
-    }
-  }, [videoTrack.persistentTrack]);
 
   const updateMicrophone = (e) => {
     setMicrophone(e.target.value);
