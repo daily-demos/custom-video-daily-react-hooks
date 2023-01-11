@@ -1,6 +1,6 @@
 # Custom React video app with Daily React Hooks
 
-This repository is part of [a Daily blog post series](<[https://www.daily.co/blog/custom-video-app-with-daily-react-hooks-part-one/](https://www.daily.co/blog/tag/daily-react-hooks/)>) on using the [Daily React Hooks library](https://www.daily.co/blog/introducing-the-new-daily-react-hooks-library/) to create a custom video calling app.
+This repository is part of [a Daily blog post series](<[https://www.daily.co/blog/custom-video-app-with-daily-react-hooks-part-one/](https://www.daily.co/blog/tag/daily-react-hooks/)>) on using the [Daily React library](https://docs.daily.co/reference/daily-react) to create a custom video calling app.
 
 |                                                                                                                                                                                                     |                                                                                                                                |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
