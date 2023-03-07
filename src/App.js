@@ -174,7 +174,7 @@ export default function App() {
           <p>
             Room could not be created. Check if your `.env` file is set up correctly. For more
             information, see the{' '}
-            <a href="https://github.com/daily-demos/call-object-react-daily-hooks/blob/main/README.md">
+            <a href="https://github.com/daily-demos/custom-video-daily-react-hooks#readme">
               readme
             </a>{' '}
             :)
