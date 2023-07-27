@@ -36,9 +36,15 @@ export default function Call() {
   );
 
   const renderCallScreen = () => (
-    <div className={`${screens.length > 0 ? 'is-screenshare' : 'call'}`}>
+    <div className={screens.length > 0 ? 'is-screenshare' : 'call'}>
       {/* Your self view */}
-      {localParticipant && <Tile id={localParticipant.session_id} isLocal isAlone={isAlone} />}
+      {localParticipant && (
+        <Tile
+          id={localParticipant.session_id}
+          isLocal
+          isAlone={isAlone}
+        />
+      )}
       {/* Videos of remote participants and screen shares */}
       {remoteParticipantIds?.length > 0 || screens?.length > 0 ? (
         <>

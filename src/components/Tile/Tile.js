@@ -1,8 +1,10 @@
 import './Tile.css';
-import { DailyVideo } from '@daily-co/daily-react';
+import { DailyVideo, useMediaTrack } from '@daily-co/daily-react';
 import Username from '../Username/Username';
 
 export default function Tile({ id, isScreenShare, isLocal, isAlone }) {
+  const videoState = useMediaTrack(id, 'video');
+
   let containerCssClasses = isScreenShare ? 'tile-screenshare' : 'tile-video';
 
   if (isLocal) {
@@ -10,6 +12,12 @@ export default function Tile({ id, isScreenShare, isLocal, isAlone }) {
     if (isAlone) {
       containerCssClasses += ' alone';
     }
+  }
+
+  /* If a participant's video is muted, hide their video and
+  add a different background color to their tile. */
+  if (videoState.isOff) {
+    containerCssClasses += ' no-video';
   }
 
   return (
