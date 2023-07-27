@@ -24,6 +24,14 @@
   }
 }
 
+.no-video {
+  background-color: var(--dark-blue-border);
+}
+
+.no-video video {
+  visibility: hidden;
+}
+
 /* Hard-code the self-view size if there's no one else in the call, just to make it align with the info-box */
 .self-view.alone {
   width: 480px;
