@@ -1,0 +1,38 @@
+.facedetector {
+  position: absolute;
+  z-index: 2;
+  color: var(--grey);
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  padding: 0.2em 0.5em;
+}
+
+.facedetector button {
+  position: absolute;
+  top: 0.2em;
+  right: 0.5em;
+  background-color: none !important;
+}
+
+.facedetector button.off {
+  color: var(--white);
+  background-color: var(--dark-blue) !important;
+}
+
+.facedetector button:disabled,
+.facedetector button:disabled.off {
+  color: var(--dark-grey) !important;
+  background-color: var(--grey) !important;
+  cursor: default;
+}
+
+.facedetector .result {
+  position: absolute;
+  bottom: 0;
+  background: var(--dark-blue);
+  right: 0;
+  padding: 0.2em 0.5em;
+}
