@@ -1,13 +1,14 @@
 import { useCallback, useState } from 'react';
-import { useAppMessage, useLocalParticipant } from '@daily-co/daily-react';
+import { useAppMessage, useLocalSessionId, useParticipantProperty } from '@daily-co/daily-react';
 
 import { Arrow } from '../Tray/Icons/index';
 import './Chat.css';
 
 export default function Chat({ showChat, toggleChat }) {
-  const localParticipant = useLocalParticipant();
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const localSessionId = useLocalSessionId();
+  const username = useParticipantProperty(localSessionId, 'user_name');
 
   const sendAppMessage = useAppMessage({
     onAppMessage: useCallback(
@@ -31,7 +32,7 @@ export default function Chat({ showChat, toggleChat }) {
       sendAppMessage(
         {
           msg: message,
-          name: localParticipant?.user_name || 'Guest',
+          name: username || 'Guest',
         },
         '*',
       );
@@ -43,20 +44,20 @@ export default function Chat({ showChat, toggleChat }) {
         ...messages,
         {
           msg: message,
-          name: localParticipant?.user_name || 'Guest',
+          name: username || 'Guest',
         },
       ]);
     },
-    [localParticipant, messages, sendAppMessage],
+    [messages, sendAppMessage, username],
   );
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setInputValue(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!inputValue) return; // don't allow people to submit empty strings
+    if (!inputValue.trim()) return; // don't allow people to submit empty strings
     sendMessage(inputValue);
     setInputValue('');
   };
@@ -67,7 +68,7 @@ export default function Chat({ showChat, toggleChat }) {
         Close chat
       </button>
       <ul className="chat-messages">
-        {messages?.map((message, index) => (
+        {messages.map((message, index) => (
           <li key={`message-${index}`} className="chat-message">
             <span className="chat-message-author">{message?.name}</span>:{' '}
             <p className="chat-message-body">{message?.msg}</p>
@@ -81,7 +82,7 @@ export default function Chat({ showChat, toggleChat }) {
             type="text"
             placeholder="Type your message here.."
             value={inputValue}
-            onChange={(e) => onChange(e)}
+            onChange={handleChange}
           />
           <button type="submit" className="chat-submit-button">
             <Arrow />

@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import {
-  useDaily,
-  useScreenShare,
-  useLocalParticipant,
-  useVideoTrack,
+  useAppMessage,
   useAudioTrack,
-  useDailyEvent,
+  useDaily,
+  useLocalSessionId,
+  useScreenShare,
+  useVideoTrack,
 } from '@daily-co/daily-react';
 
 import MeetingInformation from '../MeetingInformation/MeetingInformation';
@@ -32,24 +32,23 @@ export default function Tray({ leaveCall }) {
   const [showChat, setShowChat] = useState(false);
   const [newChatMessage, setNewChatMessage] = useState(false);
 
-  const localParticipant = useLocalParticipant();
-  const localVideo = useVideoTrack(localParticipant?.session_id);
-  const localAudio = useAudioTrack(localParticipant?.session_id);
+  const localSessionId = useLocalSessionId();
+  const localVideo = useVideoTrack(localSessionId);
+  const localAudio = useAudioTrack(localSessionId);
   const mutedVideo = localVideo.isOff;
   const mutedAudio = localAudio.isOff;
 
   /* When a remote participant sends a message in the chat, we want to display a differently colored
    * chat icon in the Tray as a notification. By listening for the `"app-message"` event we'll know
    * when someone has sent a message. */
-  useDailyEvent(
-    'app-message',
-    useCallback(() => {
+  useAppMessage({
+    onAppMessage: useCallback(() => {
       /* Only light up the chat icon if the chat isn't already open. */
       if (!showChat) {
         setNewChatMessage(true);
       }
-    }, [showChat]),
-  );
+    }, [showChat])
+  });
 
   const toggleVideo = useCallback(() => {
     callObject.setLocalVideo(mutedVideo);
@@ -59,7 +58,7 @@ export default function Tray({ leaveCall }) {
     callObject.setLocalAudio(mutedAudio);
   }, [callObject, mutedAudio]);
 
-  const toggleScreenShare = () => (isSharingScreen ? stopScreenShare() : startScreenShare());
+  const toggleScreenShare = () => isSharingScreen ? stopScreenShare() : startScreenShare();
 
   const toggleMeetingInformation = () => {
     setShowMeetingInformation(!showMeetingInformation);

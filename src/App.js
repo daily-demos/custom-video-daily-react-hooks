@@ -2,7 +2,7 @@ import './App.css';
 
 import React, { useEffect, useState, useCallback } from 'react';
 import DailyIframe from '@daily-co/daily-js';
-import { DailyProvider } from '@daily-co/daily-react';
+import { DailyAudio, DailyProvider } from '@daily-co/daily-react';
 
 import api from './api';
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from './utils';
@@ -60,9 +60,10 @@ export default function App() {
 
   /**
    * Once we pass the hair check, we can actually join the call.
+   * We'll pass the username entered during Haircheck to .join().
    */
-  const joinCall = useCallback(() => {
-    callObject.join({ url: roomUrl });
+  const joinCall = useCallback((userName) => {
+    callObject.join({ url: roomUrl, userName });
   }, [callObject, roomUrl]);
 
   /**
@@ -183,21 +184,20 @@ export default function App() {
       );
     }
 
-    // No API errors? Let's check our hair then.
-    if (showHairCheck) {
+    if (showHairCheck || showCall) {
       return (
         <DailyProvider callObject={callObject}>
-          <HairCheck joinCall={joinCall} cancelCall={startLeavingCall} />
-        </DailyProvider>
-      );
-    }
-
-    // No API errors, we passed the hair check, and we've joined the call? Then show the call.
-    if (showCall) {
-      return (
-        <DailyProvider callObject={callObject}>
-          <Call />
-          <Tray leaveCall={startLeavingCall} />
+          {showHairCheck ? (
+            // No API errors? Let's check our hair then.
+            <HairCheck joinCall={joinCall} cancelCall={startLeavingCall} />
+          ) : (
+            // No API errors, we passed the hair check, and we've joined the call? Then show the call.
+            <>
+              <Call />
+              <Tray leaveCall={startLeavingCall} />
+              <DailyAudio />
+            </>
+          )}
         </DailyProvider>
       );
     }

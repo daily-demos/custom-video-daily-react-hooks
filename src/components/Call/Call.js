@@ -1,10 +1,9 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   useParticipantIds,
   useScreenShare,
-  useLocalParticipant,
   useDailyEvent,
-  DailyAudio,
+  useLocalSessionId,
 } from '@daily-co/daily-react';
 
 import './Call.css';
@@ -29,24 +28,21 @@ export default function Call() {
   const remoteParticipantIds = useParticipantIds({ filter: 'remote' });
 
   /* This is for displaying our self-view. */
-  const localParticipant = useLocalParticipant();
-  const isAlone = useMemo(
-    () => remoteParticipantIds?.length < 1 || screens?.length < 1,
-    [remoteParticipantIds, screens],
-  );
+  const localSessionId = useLocalSessionId();
+  const isAlone = remoteParticipantIds.length < 1 || screens.length < 1;
 
   const renderCallScreen = () => (
     <div className={screens.length > 0 ? 'is-screenshare' : 'call'}>
       {/* Your self view */}
-      {localParticipant && (
+      {localSessionId && (
         <Tile
-          id={localParticipant.session_id}
+          id={localSessionId}
           isLocal
           isAlone={isAlone}
         />
       )}
       {/* Videos of remote participants and screen shares */}
-      {remoteParticipantIds?.length > 0 || screens?.length > 0 ? (
+      {remoteParticipantIds.length > 0 || screens.length > 0 ? (
         <>
           {remoteParticipantIds.map((id) => (
             <Tile key={id} id={id} />
@@ -54,7 +50,6 @@ export default function Call() {
           {screens.map((screen) => (
             <Tile key={screen.screenId} id={screen.session_id} isScreenShare />
           ))}
-          <DailyAudio />
         </>
       ) : (
         // When there are no remote participants or screen shares
