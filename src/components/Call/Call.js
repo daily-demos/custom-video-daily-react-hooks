@@ -1,8 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import {
+  useDevices,
   useParticipantIds,
   useScreenShare,
-  useDailyEvent,
   useLocalSessionId,
 } from '@daily-co/daily-react';
 
@@ -12,16 +12,7 @@ import UserMediaError from '../UserMediaError/UserMediaError';
 
 export default function Call() {
   /* If a participant runs into a getUserMedia() error, we need to warn them. */
-  const [getUserMediaError, setGetUserMediaError] = useState(false);
-
-  /* We can use the useDailyEvent() hook to listen for daily-js events. Here's a full list
-   * of all events: https://docs.daily.co/reference/daily-js/events */
-  useDailyEvent(
-    'camera-error',
-    useCallback(() => {
-      setGetUserMediaError(true);
-    }, []),
-  );
+  const { hasCamError } = useDevices();
 
   /* This is for displaying remote participants: this includes other humans, but also screen shares. */
   const { screens } = useScreenShare();
@@ -62,5 +53,5 @@ export default function Call() {
     </div>
   );
 
-  return getUserMediaError ? <UserMediaError /> : renderCallScreen();
+  return hasCamError ? <UserMediaError /> : renderCallScreen();
 }
