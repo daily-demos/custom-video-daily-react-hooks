@@ -50,7 +50,7 @@
      (plain 1fr has an implicit auto minimum that lets content push the row taller).
      Row 2 (10vh): participant thumbnail strip — fixed viewport-relative height
      so the screenshare row never gets pushed out of the viewport */
-  grid-template-rows: minmax(0, 1fr) 10vh;
+  grid-template-rows: minmax(0, 1fr) max(10vh, 60px);
   grid-row-gap: 15px;
   height: 100%;
   min-height: 0;
@@ -62,13 +62,13 @@
  */
 .is-screenshare .self-view {
   width: auto;
-  height: 10vh;
+  height: max(10vh, 60px);
 }
 
 /* Resize remote participants when a screen is being shared */
 .is-screenshare .tile-video {
   width: auto;
-  height: 10vh;
+  height: max(10vh, 60px);
 }
 
 /* Make the screen share tile fill all available space above the participant thumbnail row.
