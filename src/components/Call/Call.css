@@ -41,8 +41,9 @@
   padding: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   /* Row 1 (1fr): screen share tile, placed via grid-row: 1 in Tile.css
-     Row 2 (auto): participant thumbnail strip, naturally 135px tall */
-  grid-template-rows: 1fr auto;
+     Row 2 (10vh): participant thumbnail strip — fixed viewport-relative height
+     so the screenshare row never gets pushed out of the viewport */
+  grid-template-rows: 1fr 10vh;
   grid-row-gap: 15px;
   height: 100%;
   min-height: 0;
@@ -53,20 +54,25 @@
   so the biggest screen in our grid is the screen share.
  */
 .is-screenshare .self-view {
-  width: 240px;
-  height: 135px;
+  width: auto;
+  height: 10vh;
 }
 
 /* Resize remote participants when a screen is being shared */
 .is-screenshare .tile-video {
-  width: 240px;
-  height: 135px;
+  width: auto;
+  height: 10vh;
 }
 
 /* Make the screen share tile fill all available space above the participant thumbnail row */
 .is-screenshare .tile-screenshare {
   width: 100%;
   height: 100%;
+}
+
+/* Scale the screenshare video to fit within its container without cropping */
+.is-screenshare .tile-screenshare video {
+  object-fit: contain;
 }
 
 .info-box {
