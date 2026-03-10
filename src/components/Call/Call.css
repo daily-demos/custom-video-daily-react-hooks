@@ -45,10 +45,12 @@
   display: grid;
   padding: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  /* Row 1 (1fr): screen share tile, placed via grid-row: 1 in Tile.css
+  /* Row 1: screen share tile, placed via grid-row: 1 in Tile.css.
+     minmax(0, 1fr) prevents the row from growing beyond its share of available space
+     (plain 1fr has an implicit auto minimum that lets content push the row taller).
      Row 2 (10vh): participant thumbnail strip — fixed viewport-relative height
      so the screenshare row never gets pushed out of the viewport */
-  grid-template-rows: 1fr 10vh;
+  grid-template-rows: minmax(0, 1fr) 10vh;
   grid-row-gap: 15px;
   height: 100%;
   min-height: 0;
@@ -69,10 +71,13 @@
   height: 10vh;
 }
 
-/* Make the screen share tile fill all available space above the participant thumbnail row */
+/* Make the screen share tile fill all available space above the participant thumbnail row.
+   min-height: 0 lets the tile shrink below its video's intrinsic size so it stays
+   within the grid row instead of overflowing into the participant strip. */
 .is-screenshare .tile-screenshare {
   width: 100%;
   height: 100%;
+  min-height: 0;
 }
 
 /* Scale the screenshare video to fit within its container without cropping */
