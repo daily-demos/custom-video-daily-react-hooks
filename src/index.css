@@ -22,6 +22,10 @@ body {
   height: 100%;
 }
 
+#root {
+  height: 100%;
+}
+
 body {
   color: #333;
   margin: 0;

@@ -6,14 +6,19 @@
  */
 .call {
   display: grid;
-  padding: 5rem;
+  padding: 1rem;
   align-items: center;
   justify-items: center;
+  /* The ≤600px media query below overrides this to a narrower minimum,
+     ensuring no horizontal overflow on small viewports. */
   grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
   grid-auto-rows: 1fr;
   grid-column-gap: 30px;
   grid-row-gap: 30px;
   width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
   position: relative;
 }
 
@@ -25,11 +30,30 @@
   }
 }
 
+/* Allow tiles to fill their grid cells and prevent them from overflowing the call container.
+   min-width/height: 0 overrides the CSS grid default of min-width/height: auto, which
+   would otherwise prevent items from shrinking below their natural content size. */
+.call .tile-video,
+.call .self-view {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
 .is-screenshare {
   display: grid;
-  padding: 5rem;
+  padding: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* Row 1: screen share tile, placed via grid-row: 1 in Tile.css.
+     minmax(0, 1fr) prevents the row from growing beyond its share of available space
+     (plain 1fr has an implicit auto minimum that lets content push the row taller).
+     Row 2 (10vh): participant thumbnail strip — fixed viewport-relative height
+     so the screenshare row never gets pushed out of the viewport */
+  grid-template-rows: minmax(0, 1fr) max(10vh, 60px);
   grid-row-gap: 15px;
+  height: 100%;
+  min-height: 0;
 }
 
 /*
@@ -37,14 +61,28 @@
   so the biggest screen in our grid is the screen share.
  */
 .is-screenshare .self-view {
-  width: 240px;
-  height: 135px;
+  width: auto;
+  height: max(10vh, 60px);
 }
 
 /* Resize remote participants when a screen is being shared */
 .is-screenshare .tile-video {
-  width: 240px;
-  height: 135px;
+  width: auto;
+  height: max(10vh, 60px);
+}
+
+/* Make the screen share tile fill all available space above the participant thumbnail row.
+   min-height: 0 lets the tile shrink below its video's intrinsic size so it stays
+   within the grid row instead of overflowing into the participant strip. */
+.is-screenshare .tile-screenshare {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Scale the screenshare video to fit within its container without cropping */
+.is-screenshare .tile-screenshare video {
+  object-fit: contain;
 }
 
 .info-box {

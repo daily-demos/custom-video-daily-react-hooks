@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   useDevices,
   useDaily,
-  useDailyEvent,
   DailyVideo,
   useLocalSessionId,
   useParticipantProperty,
@@ -14,22 +13,13 @@ import './HairCheck.css';
 export default function HairCheck({ joinCall, cancelCall }) {
   const localSessionId = useLocalSessionId();
   const initialUsername = useParticipantProperty(localSessionId, 'user_name');
-  const { currentCam, currentMic, currentSpeaker, microphones, speakers, cameras, setMicrophone, setCamera, setSpeaker } = useDevices();
+  const { currentCam, currentMic, currentSpeaker, microphones, speakers, cameras, hasCamError, setMicrophone, setCamera, setSpeaker } = useDevices();
   const callObject = useDaily();
   const [username, setUsername] = useState(initialUsername);
-
-  const [getUserMediaError, setGetUserMediaError] = useState(false);
 
   useEffect(() => {
     setUsername(initialUsername);
   }, [initialUsername]);
-
-  useDailyEvent(
-    'camera-error',
-    useCallback(() => {
-      setGetUserMediaError(true);
-    }, []),
-  );
 
   const handleChange = (e) => {
     setUsername(e.target.value);
@@ -53,13 +43,14 @@ export default function HairCheck({ joinCall, cancelCall }) {
     setCamera(e.target.value);
   };
 
-  return getUserMediaError ? (
+  return hasCamError ? (
     <UserMediaError />
   ) : (
     <form className="hair-check" onSubmit={handleJoin}>
       <h1>Setup your hardware</h1>
       {/* Video preview */}
-      {localSessionId && <DailyVideo sessionId={localSessionId} mirror />}
+      {/* automirror flips only front-facing cameras, unlike mirror which always flips */}
+      {localSessionId && <DailyVideo sessionId={localSessionId} automirror />}
 
       {/* Username */}
       <div>

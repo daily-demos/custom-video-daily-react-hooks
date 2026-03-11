@@ -3,12 +3,12 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "@daily-co/daily-js": "^0.54.0",
-    "@daily-co/daily-react": "^0.16.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1",
-    "recoil": "^0.7.7"
+    "@daily-co/daily-js": "^0.87.0",
+    "@daily-co/daily-react": "^0.24.0",
+    "jotai": "^2.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "eslint": "^8.45.0",
